@@ -1,0 +1,5 @@
+.DS_Store
+examples
+node_modules
+scripts
+src
