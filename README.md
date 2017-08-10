@@ -5,6 +5,8 @@ Allows you to easily build the following graph:
 - [Bar Chart](#BarChart)
 - [Stacked Bar Chart](#StackedBarChart)
 
+<img src="https://user-images.githubusercontent.com/3080207/29157010-7cab30de-7dad-11e7-984b-10ae187bdc5d.png">
+ 
 <a name="BarChart"></a>
 ## Bar Chart
 A bar chart or bar graph is a chart or graph that presents grouped data with rectangular bars with lengths proportional 
