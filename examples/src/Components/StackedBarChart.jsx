@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StackedBarChart} from 'react-d3-chart-graphs';
+import {StackedBarChart} from '@hh.ru/react-d3-chart-graphs';
 
 const data = [
     {
