@@ -16,7 +16,7 @@ export default ChartComponent => (
         }
 
         componentWillReceiveProps(nextProps) {
-            if (this.props.toggleDrawerAnimationEndState !== nextProps.toggleDrawerAnimationEndState) {
+            if (this.props.toggleResize !== nextProps.toggleResize) {
                 this.fitParentContainer();
             }
         }

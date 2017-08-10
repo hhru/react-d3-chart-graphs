@@ -1,5 +1,5 @@
 {
-  "name": "react-d3-chart-graphs",
+  "name": "@hh.ru/react-d3-chart-graphs",
   "version": "0.1.0",
   "description": "A javascript library for building charts components made with React.js and D3.js",
   "main": "dist/index.js",
@@ -10,12 +10,13 @@
     "dev": "node scripts/dev.js",
     "build": "NODE_ENV='production' webpack",
     "lint": "eslint src/",
-    "prepublish": "npm run build"
+    "prepublish": "yarn build"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/hhru/react-d3-chart-graphs"
   },
+  "private": false,
   "keywords": [
     "react",
     "graph",
