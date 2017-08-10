@@ -72,6 +72,7 @@ metrics current bar.
     }
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
+- toggleResize -type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
 
 <a name="StackedBarChart"></a>
 ## Stacked Bar Chart
@@ -185,6 +186,8 @@ metrics current bar.
     }
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
+
+- toggleResize -type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
  
 <a name="AxesProps"></a>
 ## Axes props
