@@ -15,12 +15,11 @@ export default class StackedBar extends Component {
 
             return (
                 <Bar
-                    titleBar={data.title}
-                    key={data.title + datum.title}
+                    titleBar={data.titleBar}
+                    key={(data.key || data.titleBar) + datum.title}
                     isClickable={isClickable}
                     datum={datum}
-                    tooltipContent={this.props.tooltipContent}
-                    x={xScale(data.title)}
+                    x={xScale(data.titleBar)}
                     y={yScale(previsionHeight)}
                     height={itemHeight}
                     width={xScale.bandwidth()}
