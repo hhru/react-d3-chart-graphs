@@ -57,7 +57,7 @@ class Chart extends PureComponent {
 
         const xScale = this.xScale
             .padding(paddingMultiplier || defaultPaddingMultiplier)
-            .domain(data.map(d => d.title))
+            .domain(data.map(d => d.titleBar))
             .range([canvasMargins.left, svgDimensions.width - canvasMargins.right]);
 
         const yScale = this.yScale

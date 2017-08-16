@@ -89,7 +89,8 @@ In a grouped bar chart, for each categorical group there are two or more bars.
      Fields:
       ```
      {
-        "title": "first bar",
+        "titleBar": "first bar",
+        "key": "uId", //default titleBar
          "values": [
              {
                  "title": "BAR_1",
@@ -227,3 +228,11 @@ metrics current bar.
     Show /examples/src/Components. This is create-react-app kit. CLI: cd examples && yarn start
 
 
+### 0.1.0
+
+* First release
+* Add bar chart and stacked bar chart
+
+### 1.0.0
+
+* Changed data props field in Stacked bar chart

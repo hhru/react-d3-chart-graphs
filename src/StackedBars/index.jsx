@@ -10,7 +10,7 @@ export default class StackedBars extends Component {
         const bars = (data.map(datum => (
             <StackedBar
                 scales={{xScale, yScale}}
-                key={datum.title}
+                key={datum.key || datum.titleBar}
                 isClickable={isClickable}
                 margins={margins}
                 data={datum}
