@@ -7,7 +7,7 @@ const isDevMode = process.env.NODE_ENV === 'development';
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, isDevMode ? './' : 'dist'),
+        path: path.resolve(__dirname, isDevMode ? './examples/node_modules/@hh.ru/react-d3-chart-graphs' : 'dist'),
         publicPath: '/dist/',
         filename: 'index.js',
         libraryTarget: 'umd',
@@ -35,16 +35,16 @@ module.exports = {
                                 importLoaders: 1,
                                 minimize: true,
                             },
-                        }
+                        },
                     ],
                 }),
             },
-        ]
+        ],
     },
     plugins: [
         new ExtractTextPlugin("styles.css"),
         new webpack.optimize.UglifyJsPlugin({
-            minimize: !isDevMode
-        })
-    ]
+            minimize: !isDevMode,
+        }),
+    ],
 };

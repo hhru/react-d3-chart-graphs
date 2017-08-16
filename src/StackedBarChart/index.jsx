@@ -67,7 +67,7 @@ class Chart extends PureComponent {
 
         return (
             <div>
-                <BarDescription stackColors={stackColors} left={canvasMargins.left}/>
+                <BarDescription stackColors={stackColors} left={canvasMargins.left} />
                 <svg
                     onMouseMove={this.props.handleBarHover ? this.handleMouseMove : undefined}
                     onClick={this.props.handleBarClick ? this.handleBarClick : undefined}

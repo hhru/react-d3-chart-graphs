@@ -23,7 +23,7 @@ export default class StackedBar extends Component {
                     y={yScale(previsionHeight)}
                     height={itemHeight}
                     width={xScale.bandwidth()}
-                    fill={stackColors[datum.title]} />
+                    fill={stackColors[datum.title].color} />
             );
         });
 

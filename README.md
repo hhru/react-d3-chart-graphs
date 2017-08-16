@@ -134,16 +134,15 @@ In a grouped bar chart, for each categorical group there are two or more bars.
 - stackColors -type: object. It is map colors to title data.
     Example:
     ```
-    {
-        'BAR_1': '#607D8B',
-        'BAR_2': '#4CAF50',
-        'BAR_3': '#009688',
-        'BAR_4': '#00BCD4',
-        'BAR_5': '#2196F3',
-        'BAR_6': '#3F51B5',
-        'BAR_7': '#FFCCBC',
-        'BAR_8': '#FF9800',
-        'BAR_9': '#FFEB3B',
+    stackColors = {
+        BAR_1: {
+            color: '#607D8B', //bar color
+            legend: 'some bar 1', // legend text
+        },
+        BAR_2: {
+            color: '#4CAF50',
+            legend: 'some bar 2',
+        },
     }
     ```
 - paddingMultiplier -type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
@@ -224,8 +223,8 @@ metrics current bar.
     }
     ```
 
-## Examples
-    Show /examples/src/Components. This is create-react-app kit. CLI: cd examples && yarn start
+## Examples and development
+    Show /examples/src/Components. This is create-react-app kit. CLI: cd examples && yarn && cd ../ yarn dev
 
 
 ### 0.1.0
@@ -236,3 +235,7 @@ metrics current bar.
 ### 1.0.0
 
 * Changed data props field in Stacked bar chart
+
+### 2.0.0
+
+* Changed data props stackColors in Stacked bar chart (added legend text)
