@@ -16,9 +16,9 @@ export default class Legends extends Component {
         for (let item in stackColors) {
             barDescriptions.push(
                 <LegendItem
-                    key={stackColors[item]}
-                    color={stackColors[item]}
-                    text={item} />
+                    key={stackColors[item].color}
+                    color={stackColors[item].color}
+                    text={stackColors[item].legend} />
             );
         }
 
