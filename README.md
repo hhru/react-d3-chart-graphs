@@ -239,3 +239,7 @@ metrics current bar.
 ### 2.0.0
 
 * Changed data props stackColors in Stacked bar chart (added legend text)
+
+### 2.0.1
+
+* Changed development build, fix uglify.

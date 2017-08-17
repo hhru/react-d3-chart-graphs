@@ -4,10 +4,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isDevMode = process.env.NODE_ENV === 'development';
 
+const plugins = [
+    new ExtractTextPlugin("styles.css"),
+];
+
+if (!isDevMode) {
+    plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, isDevMode ? './examples/node_modules/@hh.ru/react-d3-chart-graphs' : 'dist'),
+        path: path.resolve(__dirname, isDevMode ? './' : 'dist'),
         publicPath: '/dist/',
         filename: 'index.js',
         libraryTarget: 'umd',
@@ -41,10 +49,5 @@ module.exports = {
             },
         ],
     },
-    plugins: [
-        new ExtractTextPlugin("styles.css"),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: !isDevMode,
-        }),
-    ],
+    plugins,
 };
