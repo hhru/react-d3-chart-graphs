@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const isDevMode = process.env.NODE_ENV === 'development';
 
 const plugins = [
-    new ExtractTextPlugin("styles.css"),
+    new ExtractTextPlugin('styles.css'),
 ];
 
 if (!isDevMode) {
@@ -15,15 +15,15 @@ if (!isDevMode) {
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, isDevMode ? './' : 'dist'),
+        path: path.resolve(__dirname, isDevMode ? './examples/node_modules/@hh.ru/react-d3-chart-graphs' : 'dist'),
         publicPath: '/dist/',
         filename: 'index.js',
         libraryTarget: 'umd',
         library: 'react-d3-chart-graphs',
-        umdNamedDefine: true
+        umdNamedDefine: true,
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
     },
     module: {
         rules: [

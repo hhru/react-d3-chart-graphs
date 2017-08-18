@@ -1,47 +1,46 @@
 import React from 'react';
-
 import {BarChart} from '@hh.ru/react-d3-chart-graphs';
 
 const items = [
     {
-        "title": "First bar",
-        "value": 2
+        title: 'First bar',
+        value: 2,
     },
     {
-        "title": "Second bar",
-        "value": 4
+        title: 'Second bar',
+        value: 4,
     },
     {
-        "title": "Third bar",
-        "value": 5
+        title: 'Third bar',
+        value: 5,
     },
     {
-        "title": "Last bar",
-        "value": 7
+        title: 'Last bar',
+        value: 7,
     },
 ];
 
 const axesProps = {
     legend: {
         xAxis: 'Label bottom axis',
-        yAxis: 'Label left axis'
+        yAxis: 'Label left axis',
     },
     padding: {
         xAxis: 20,
-        yAxis: 20
+        yAxis: 20,
     },
     ticksCount: 6,
     tickFormat: {
         xAxis: function(value) {
             return `${value} - formated`;
-        }
-    }
-}
+        },
+    },
+};
 
 const colorScale = {
     min: '#B2EBF2',
-    max: '#CCC'
-}
+    max: '#CCC',
+};
 
 export default () => {
     const handleBarHover = (item) => {
@@ -60,6 +59,6 @@ export default () => {
             handleBarHover={handleBarHover}
             handleBarClick={handleBarClick}
             paddingMultiplier={0.24} />
-    )
+    );
 };
 

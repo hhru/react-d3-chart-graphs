@@ -4,13 +4,13 @@ import {interpolateLab} from 'd3-interpolate';
 import throttle from 'lodash.throttle';
 
 import Axes from '../Axes';
-import Bars from '../Bars';
+import Whisker from '../BoxPlotItem';
 import ResponsiveWrapper from '../ResponsiveWrapper';
 
 const COLOR_SCALE_MIN_DEFAULT = '#B2EBF2';
 const COLOR_SCALE_MAX_DEFAULT = '#00BCD4';
 
-class Chart extends Component {
+class BoxPlot extends Component {
     xScale = scaleBand();
     yScale = scaleLinear();
     handleBarHover = this.props.handleBarHover ? this.props.handleBarHover.bind(null) : () => {};
@@ -36,16 +36,21 @@ class Chart extends Component {
     };
 
     render() {
-        const { data, paddingMultiplier, axesProps, margins, colorScale } = this.props;
-        const { legend, padding, ticksCount, tickFormat } = axesProps;
+        const {data, paddingMultiplier, axesProps, margins, colorScale} = this.props;
+        const {legend, padding, ticksCount, tickFormat} = axesProps;
         const defaultPaddingMultiplier = 0;
-        const defaultMargins = { top: 10, right: 10, bottom: 150, left: 80 };
+        const defaultMargins = {top: 10, right: 10, bottom: 150, left: 80};
         const canvasMargins = margins || defaultMargins;
         const svgDimensions = {
             width: Math.max(this.props.parentWidth, 300),
             height: 500,
         };
-        let maxValue = Math.max(...data.map(d => d.value));
+
+        let maxValue = Math.max(...data.reduce((result, values) => {
+            result.push((values.values.ejection && values.values.ejection.max) || values.values.max);
+
+            return result;
+        }, []));
 
         if (!isFinite(maxValue)) {
             maxValue = 0;
@@ -67,6 +72,18 @@ class Chart extends Component {
                 colorScale && colorScale.max || COLOR_SCALE_MAX_DEFAULT])
             .interpolate(interpolateLab);
 
+        const whiskers = data.map(datum =>
+            <Whisker
+                key={datum.title}
+                isClickable={!!this.props.handleBarClick}
+                scales={{xScale, yScale}}
+                margins={canvasMargins}
+                datum={datum}
+                maxValue={maxValue}
+                colorScale={colorScaleInterpolate}
+                svgDimensions={svgDimensions} />
+        );
+
         return (
             <svg
                 onMouseMove={this.props.handleBarHover ? this.handleMouseMove : undefined}
@@ -81,17 +98,10 @@ class Chart extends Component {
                     tickFormat={tickFormat}
                     svgDimensions={svgDimensions}
                     legend={legend} />
-                <Bars
-                    scales={{xScale, yScale}}
-                    margins={canvasMargins}
-                    data={data}
-                    isClickable={!!this.props.handleBarClick}
-                    colorScale={colorScaleInterpolate}
-                    svgDimensions={svgDimensions} />
+                {whiskers}
             </svg>
         );
     }
 }
 
-const responsiveWrapper = ResponsiveWrapper(Chart);
-export default responsiveWrapper;
+export default ResponsiveWrapper(BoxPlot);
