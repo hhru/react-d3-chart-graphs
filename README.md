@@ -190,6 +190,92 @@ metrics current bar.
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
 
 - toggleResize -type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
+
+<a name="BoxPlot"></a>
+## Box Plot
+Bar graphs is a method for graphically depicting groups of numerical data through their quartiles.
+ 
+ Consists of the following properties:
+ 
+ - [axesProps.padding](#AxesProps)
+ - data - type: array of object. 
+ 
+     Fields:
+      ```
+     {
+         title: 'First bar',
+         values: {
+             min: 7,
+             max: 118,
+             median: 20,
+             quartiles: {
+                 min: 15,
+                 max: 40,
+             },
+         },
+     }
+      ```
+- colorScale - type Object. Sets the color of the bar, depending on the value on the y-axis with the help of the function
+ d3-interpolate.
+    Fields (default values):
+     ```
+        {
+            min: '#B2EBF2'
+            max: '#00BCD4',
+        }
+     ```  
+- paddingMultiplier -type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
+- margins - type: object. Set canvas margins.
+    Fields (default values):
+     ```
+        {
+            top: 10,
+            right: 10,
+            bottom: 150,
+            left: 80
+        }
+     ```
+- handleBarClick - The click event is raised when the user clicks on the canvas. If user clicked on bar
+argument - item of data and metrics current bar and titleBar is a title of stack bars.
+    Fields :
+    ```
+    {
+        metrics: {
+            left: 548
+            top: 129
+            width: 52
+        },
+        title: "title chart",
+        value: 7,
+        titleBar: "first bar"
+    }
+    ```
+    If user click on canvas without bar, argument is `null`
+
+- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - item of data and 
+metrics current bar.
+    ```
+    {
+        metrics: {
+            left: 548
+            top: 129
+            width: 52
+        },
+        title: 'First bar',
+        values: {
+            min: 7,
+            max: 118,
+            median: 20,
+            quartiles: {
+                min: 15,
+                max: 40,
+            },
+        }
+    }
+    ```
+    If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
+
+- toggleResize -type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
  
 <a name="AxesProps"></a>
 ## Axes props
