@@ -4,8 +4,9 @@ Allows you to easily build the following graph:
 
 - [Bar Chart](#BarChart)
 - [Stacked Bar Chart](#StackedBarChart)
+- [Box Plot](#BoxPlot)
 
-<img src="https://user-images.githubusercontent.com/3080207/29157010-7cab30de-7dad-11e7-984b-10ae187bdc5d.png">
+<img src="https://user-images.githubusercontent.com/3080207/29460770-d85faf6a-8431-11e7-9204-be7c4a43220e.png">
  
 <a name="BarChart"></a>
 ## Bar Chart
@@ -329,3 +330,8 @@ metrics current bar.
 ### 2.0.1
 
 * Changed development build, fix uglify.
+
+
+### 2.1.0
+
+* Add box plot.

@@ -6,6 +6,8 @@ import BarChart from './Components/BarChart';
 import StackedBarChart from './Components/StackedBarChart';
 import BoxPlot from './Components/BoxPlot';
 
+import '@hh.ru/react-d3-chart-graphs/styles.css';
+
 class App extends Component {
     render() {
         return (
