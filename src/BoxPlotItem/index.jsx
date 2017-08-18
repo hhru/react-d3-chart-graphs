@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import Bar from '../Bar';
 
 const Line = styled.line`
-        fill: steelblue;
-        stroke: #000;
-        stroke-width: 1px;
+    fill: steelblue;
+    stroke: #000;
+    stroke-width: 1px;
 `;
 
 const Circle = styled.circle`

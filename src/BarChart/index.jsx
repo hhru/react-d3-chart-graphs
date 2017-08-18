@@ -18,11 +18,11 @@ class Chart extends Component {
     handleMouseMoveThrottled = throttle((item) => {
         const datum = JSON.parse(item);
 
-        if (datum && datum.title !== this.casheBarHovered) {
-            this.casheBarHovered = datum.title;
+        if (datum && datum.title !== this.cacheBarHovered) {
+            this.cacheBarHovered = datum.title;
             this.handleBarHover(datum);
-        } else if (datum === null && this.casheBarHovered !== null) {
-            this.casheBarHovered = datum;
+        } else if (datum === null && this.cacheBarHovered !== null) {
+            this.cacheBarHovered = datum;
             this.handleBarHover(datum);
         }
     }, 50);

@@ -24,7 +24,7 @@ Consists of the following properties:
         value: 7
     }
      ```
-- paddingMultiplier -type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
+- paddingMultiplier - type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
 - margins - type: object. Set canvas margins.
     Fields (default values):
      ```
@@ -74,7 +74,7 @@ metrics current bar.
     }
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
-- toggleResize -type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
+- toggleResize - type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
 
 <a name="StackedBarChart"></a>
 ## Stacked Bar Chart
@@ -145,7 +145,7 @@ In a grouped bar chart, for each categorical group there are two or more bars.
         },
     }
     ```
-- paddingMultiplier -type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
+- paddingMultiplier - type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
 - margins - type: object. Set canvas margins.
     Fields (default values):
      ```
@@ -189,7 +189,7 @@ metrics current bar.
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
 
-- toggleResize -type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
+- toggleResize - type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
 
 <a name="BoxPlot"></a>
 ## Box Plot
@@ -224,7 +224,7 @@ Bar graphs is a method for graphically depicting groups of numerical data throug
             max: '#00BCD4',
         }
      ```  
-- paddingMultiplier -type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
+- paddingMultiplier - type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
 - margins - type: object. Set canvas margins.
     Fields (default values):
      ```
@@ -275,7 +275,7 @@ metrics current bar.
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
 
-- toggleResize -type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
+- toggleResize - type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
  
 <a name="AxesProps"></a>
 ## Axes props
