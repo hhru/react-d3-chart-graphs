@@ -23,7 +23,7 @@ export default class Axis extends Component {
             .scale(this.props.scale)
             .tickSize(this.props.tickSize)
             .tickPadding([this.props.padding])
-            .ticks([this.props.ticksCount]);
+            .ticks(this.props.ticksCount);
 
         axis.tickFormat(this.props.tickFormat);
 
