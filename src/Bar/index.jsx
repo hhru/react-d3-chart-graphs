@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 export default class Bar extends Component {
     render() {
-        const {fill, height, width, x, y, datum} = this.props;
+        const {fill, height, width, x, y, datum, fillOpacity} = this.props;
 
         return (
             <rect
@@ -14,6 +14,7 @@ export default class Bar extends Component {
                 }
                 height={height}
                 width={width}
+                fillOpacity={fillOpacity}
                 fill={fill} />
         );
     }
