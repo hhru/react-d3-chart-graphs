@@ -48,16 +48,6 @@ class BoxPlotItem extends Component {
                         r={CIRCLE_RADIUS}
                         cx={xPosition}
                         cy={yScale(datum.values.ejection.min)} /> : ''}
-                <Bar
-                    key={datum.title}
-                    x={xScale(datum.title)}
-                    y={yScale(datum.values.quartiles.max)}
-                    datum={datum}
-                    isClickable={isClickable}
-                    height={height - margins.bottom - yScale(barHeight)}
-                    width={xScale.bandwidth()}
-                    fill={colorScale(max)}
-                    fill-opacity='0.4' />
                 <Line
                     className='center'
                     x1={xPosition}
@@ -82,6 +72,16 @@ class BoxPlotItem extends Component {
                     x2={x2Position}
                     y1={yMin}
                     y2={yMin} />
+                <Bar
+                    key={datum.title}
+                    x={xScale(datum.title)}
+                    y={yScale(datum.values.quartiles.max)}
+                    datum={datum}
+                    isClickable={isClickable}
+                    height={height - margins.bottom - yScale(barHeight)}
+                    width={xScale.bandwidth()}
+                    fill={colorScale(max)}
+                    fillOpacity='0.7' />
             </g>
         );
     }

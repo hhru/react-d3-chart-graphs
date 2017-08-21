@@ -335,3 +335,7 @@ metrics current bar.
 ### 2.1.0
 
 * Add box plot.
+
+### 2.1.1
+
+* Corrected the positioning of the bar in BoxPlot
