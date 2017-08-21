@@ -284,7 +284,7 @@ metrics current bar.
 - axesProps.legend.xAxis || yAxis - Text on legend
 - axesProps.padding.xAxis || yAxis - If padding is specified, sets the padding to the specified value in pixels and
   returns the axis. Default value = 5px. [d3-axis tickPadding](#https://github.com/d3/d3-axis#axis_tickPadding)
-- axesProps.ticksCount - [d3-axis tickArguments](https://github.com/d3/d3-axis#axis_tickArguments).
+- axesProps.ticksCount.xAxis || yAxis - [d3-axis tickArguments](https://github.com/d3/d3-axis#axis_tickArguments).
   Default value = 4.
 - axesProps.tickFormat.xAxis || yAxis - If format is specified, sets the tick format function and returns the axis.
   [d3-axis axis_tickFormat.](https://github.com/d3/d3-axis#axis_tickFormat)
@@ -309,6 +309,41 @@ metrics current bar.
         }
     }
     ```
+
+<a name="Axes"></a>
+## Axes
+
+Component for creating chart's axes. Has the following props:
+
+- `orient`
+- `scale`
+- `translate`
+- `tickSize`
+- `legend` see [AxesProps.legend](#AxesProps)
+- `padding` see [AxesProps.padding](#AxesProps)
+- `ticksCount` see [AxesProps.ticksCount](#AxesProps)
+- `tickFormat` see [AxesProps.tickFormat](#AxesProps)
+
+<a name="ResponsiveWrapper"></a>
+## Responsive Wrapper
+
+Wrapper component that expands to container's width. Forwards `parentWidth` prop to wrapped component.
+
+Example:
+
+```js
+import {Component} from 'react';
+import {ResponsiveWrapper} from '@hh.ru/react-d3-chart-graphs';
+
+class MyComponent extends Component {
+    render() {
+        const { parentWidth } = this.props;
+        // ...
+    }
+}
+
+export default ResponsiveWrapper(MyComponent);
+```
 
 ## Examples and development
     Show /examples/src/Components. This is create-react-app kit. CLI: cd examples && yarn && cd ../ yarn dev
@@ -339,3 +374,7 @@ metrics current bar.
 ### 2.1.1
 
 * Corrected the positioning of the bar in BoxPlot
+
+### 3.0.0
+
+* Export Axes and ResponsiveWrapper, change axesProps.ticksCount format.
