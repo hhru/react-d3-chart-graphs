@@ -20,7 +20,7 @@ const Axes = ({scales, margins, svgDimensions, legend, padding, ticksCount, tick
             translate: `translate(${(width - margins.left - margins.right) / 2}px, ${height - margins.bottom}px)`,
         },
         padding: padding && padding.xAxis !== undefined ? padding.xAxis : DEFAULT_PADDING,
-        ticksCount: ticksCount || TICKS_COUNT,
+        ticksCount: ticksCount && ticksCount.hasOwnProperty('xAxis') ? ticksCount.xAxis : TICKS_COUNT,
         tickFormat: tickFormat && typeof tickFormat.xAxis === 'function' ? tickFormat.xAxis : defaultTickFormat,
     };
     const yProps = {
@@ -35,7 +35,7 @@ const Axes = ({scales, margins, svgDimensions, legend, padding, ticksCount, tick
             translate: `translate(${margins.left}px, ${(height - margins.bottom) / 2}px) rotate(-90deg)`,
         },
         padding: padding && padding.yAxis !== undefined ? padding.yAxis : DEFAULT_PADDING,
-        ticksCount: ticksCount || TICKS_COUNT,
+        ticksCount: ticksCount && ticksCount.hasOwnProperty('yAxis') ? ticksCount.yAxis : TICKS_COUNT,
         tickFormat: tickFormat && typeof tickFormat.yAxis === 'function' ? tickFormat.yAxis : defaultTickFormat,
 };
 
