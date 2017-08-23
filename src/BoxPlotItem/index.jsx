@@ -34,20 +34,32 @@ class BoxPlotItem extends Component {
         const yMedian = yScale(median);
         const {height} = svgDimensions;
         const barHeight = datum.values.quartiles.max - datum.values.quartiles.min;
+        const ejectionMax = yScale(datum.values.ejection.max);
+        const ejectionMin = yScale(datum.values.ejection.min);
 
         return (
             <g>
                 { datum.values.ejection && datum.values.ejection.max ?
                     <Circle
+                        data-type='ejection-max'
+                        data-datum={JSON.stringify({
+                            ...datum,
+                            titleBar: this.props.titleBar,
+                            metrics: {left: xPosition, top: ejectionMax, width: CIRCLE_RADIUS}})}
                         r={CIRCLE_RADIUS}
                         cx={xPosition}
-                        cy={yScale(datum.values.ejection.max)} /> : ''}
+                        cy={ejectionMax} /> : ''}
 
                 { datum.values.ejection && datum.values.ejection.min ?
                     <Circle
+                        data-type='ejection-min'
+                        data-datum={JSON.stringify({
+                            ...datum,
+                            titleBar: this.props.titleBar,
+                            metrics: {left: xPosition, top: ejectionMin, width: CIRCLE_RADIUS}})}
                         r={CIRCLE_RADIUS}
                         cx={xPosition}
-                        cy={yScale(datum.values.ejection.min)} /> : ''}
+                        cy={ejectionMin} /> : ''}
                 <Line
                     className='center'
                     x1={xPosition}

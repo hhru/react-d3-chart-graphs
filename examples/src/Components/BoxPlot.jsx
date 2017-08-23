@@ -68,6 +68,8 @@ export default () => {
             data={items}
             handleBarHover={handleBarHover}
             handleBarClick={handleBarClick}
+            handleEjectionMaxClick={handleBarClick}
+            handleEjectionMinClick={handleBarClick}
             colorScale={colorScale}
             paddingMultiplier={0.5} />
     );

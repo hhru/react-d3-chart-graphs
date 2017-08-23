@@ -6,6 +6,7 @@ export default class Bar extends Component {
 
         return (
             <rect
+                data-type='bar'
                 style={this.props.isClickable ? {cursor: 'pointer'} : {}}
                 x={x}
                 y={y}

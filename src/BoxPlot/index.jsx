@@ -28,15 +28,32 @@ class BoxPlot extends Component {
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'));
+        if (!event.target.getAttribute('data-type')) {
+            this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'));
+        }
     };
 
-    handleBarClick = (event) => {
-        this.props.handleBarClick(JSON.parse(event.target.getAttribute('data-datum')));
+    handleClick = (event) => {
+        const type = event.target.getAttribute('data-type');
+        if (this.props.handleEjectionMaxClick && type === 'ejection-max') {
+            this.props.handleEjectionMaxClick(JSON.parse(event.target.getAttribute('data-datum')));
+        } else if (this.props.handleEjectionClickMinClick && type === 'ejection-min') {
+            this.props.handleEjectionClickMinClick(JSON.parse(event.target.getAttribute('data-datum')));
+        } else if (this.props.handleBarClick && type === 'bar') {
+            this.props.handleBarClick(JSON.parse(event.target.getAttribute('data-datum')));
+        }
     };
 
     render() {
-        const {data, paddingMultiplier, axesProps, margins, colorScale} = this.props;
+        const {
+            data,
+            paddingMultiplier,
+            axesProps,
+            margins,
+            handleBarClick,
+            handleEjectionClickMinClick,
+            handleEjectionClickMaxClick,
+            colorScale } = this.props;
         const {legend, padding, ticksCount, tickFormat} = axesProps;
         const defaultPaddingMultiplier = 0;
         const defaultMargins = {top: 10, right: 10, bottom: 150, left: 80};
@@ -45,6 +62,7 @@ class BoxPlot extends Component {
             width: Math.max(this.props.parentWidth, 300),
             height: 500,
         };
+        const isClickable = handleBarClick || handleEjectionClickMinClick || handleEjectionClickMaxClick;
 
         let maxValue = Math.max(...data.reduce((result, values) => {
             result.push((values.values.ejection && values.values.ejection.max) || values.values.max);
@@ -75,7 +93,7 @@ class BoxPlot extends Component {
         const whiskers = data.map(datum =>
             <Whisker
                 key={datum.title}
-                isClickable={!!this.props.handleBarClick}
+                isClickable={!!handleBarClick}
                 scales={{xScale, yScale}}
                 margins={canvasMargins}
                 datum={datum}
@@ -87,7 +105,7 @@ class BoxPlot extends Component {
         return (
             <svg
                 onMouseMove={this.props.handleBarHover ? this.handleMouseMove : undefined}
-                onClick={this.props.handleBarClick ? this.handleBarClick : undefined}
+                onClick={isClickable ? this.handleClick : undefined}
                 width={svgDimensions.width}
                 height={svgDimensions.height}>
                 <Axes

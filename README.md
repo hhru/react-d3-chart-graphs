@@ -236,8 +236,8 @@ Bar graphs is a method for graphically depicting groups of numerical data throug
             left: 80
         }
      ```
-- handleBarClick - The click event is raised when the user clicks on the canvas. If user clicked on bar
-argument - item of data and metrics current bar and titleBar is a title of stack bars.
+- handleBarClick - The click event is raised when the user clicks on the bar. 
+Argument - item of data and metrics current bar.
     Fields :
     ```
     {
@@ -247,11 +247,47 @@ argument - item of data and metrics current bar and titleBar is a title of stack
             width: 52
         },
         title: "title chart",
-        value: 7,
+        values: {
+             min: 7,
+             max: 118,
+             median: 20,
+             quartiles: {
+                 min: 15,
+                 max: 40,
+             },
+             ejection: {
+                 min: 2,
+                 max: 220,
+             }
+        },
         titleBar: "first bar"
     }
     ```
-    If user click on canvas without bar, argument is `null`
+- handleEjectionMaxClick | handleEjectionClickMinClick - The click event is raised when the user clicks on the ejection.
+ Argument - item of data and metrics current Circle.
+  ```
+     {
+         metrics: {
+             left: 548
+             top: 129
+             width: 5
+         },
+         title: 'First bar',
+         values: {
+             min: 7,
+             max: 118,
+             median: 20,
+             quartiles: {
+                 min: 15,
+                 max: 40,
+             },
+             ejection: {
+                 min: 2,
+                 max: 220,
+             }
+         }
+     }
+    ```
 
 - handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - item of data and 
 metrics current bar.
@@ -271,6 +307,10 @@ metrics current bar.
                 min: 15,
                 max: 40,
             },
+            ejection: {
+                min: 2,
+                max: 220,
+            }
         }
     }
     ```
@@ -378,3 +418,7 @@ export default ResponsiveWrapper(MyComponent);
 ### 3.0.0
 
 * Export Axes and ResponsiveWrapper, change axesProps.ticksCount format.
+
+### 3.1.0
+
+* Add handleEjectionClickMinClick, handleEjectionMaxClick in BoxPlot
