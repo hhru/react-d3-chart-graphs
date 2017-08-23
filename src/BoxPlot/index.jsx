@@ -34,8 +34,8 @@ class BoxPlot extends Component {
         const type = event.target.getAttribute('data-type');
         if (this.props.handleEjectionMaxClick && type === 'ejection-max') {
             this.props.handleEjectionMaxClick(JSON.parse(event.target.getAttribute('data-datum')));
-        } else if (this.props.handleEjectionClickMinClick && type === 'ejection-min') {
-            this.props.handleEjectionClickMinClick(JSON.parse(event.target.getAttribute('data-datum')));
+        } else if (this.props.handleEjectionMinClick && type === 'ejection-min') {
+            this.props.handleEjectionMinClick(JSON.parse(event.target.getAttribute('data-datum')));
         } else if (this.props.handleBarClick && type === 'bar') {
             this.props.handleBarClick(JSON.parse(event.target.getAttribute('data-datum')));
         }
@@ -48,8 +48,8 @@ class BoxPlot extends Component {
             axesProps,
             margins,
             handleBarClick,
-            handleEjectionClickMinClick,
-            handleEjectionClickMaxClick,
+            handleEjectionMinClick,
+            handleEjectionMaxClick,
             colorScale } = this.props;
         const {legend, padding, ticksCount, tickFormat} = axesProps;
         const defaultPaddingMultiplier = 0;
@@ -59,7 +59,7 @@ class BoxPlot extends Component {
             width: Math.max(this.props.parentWidth, 300),
             height: 500,
         };
-        const isClickable = handleBarClick || handleEjectionClickMinClick || handleEjectionClickMaxClick;
+        const isClickable = handleBarClick || handleEjectionMinClick || handleEjectionMaxClick;
 
         let maxValue = Math.max(...data.reduce((result, values) => {
             result.push((values.values.ejection && values.values.ejection.max) || values.values.max);

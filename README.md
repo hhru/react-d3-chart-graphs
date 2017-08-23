@@ -263,7 +263,7 @@ Argument - item of data and metrics current bar.
         titleBar: "first bar"
     }
     ```
-- handleEjectionMaxClick | handleEjectionClickMinClick - The click event is raised when the user clicks on the ejection.
+- handleEjectionMaxClick | handleEjectionMinClick - The click event is raised when the user clicks on the ejection.
  Argument - item of data and metrics current Circle.
   ```
      {
@@ -426,3 +426,7 @@ export default ResponsiveWrapper(MyComponent);
 ### 3.1.1
 
 Fix boxPlot mousemove
+
+### 4.0.0
+
+Rename click handlers BoxPlot
