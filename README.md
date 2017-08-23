@@ -419,6 +419,10 @@ export default ResponsiveWrapper(MyComponent);
 
 * Export Axes and ResponsiveWrapper, change axesProps.ticksCount format.
 
-### 3.1.0
+### 3.1.1
 
 * Add handleEjectionClickMinClick, handleEjectionMaxClick in BoxPlot
+
+### 3.1.1
+
+Fix boxPlot mousemove

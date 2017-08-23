@@ -17,7 +17,6 @@ class BoxPlot extends Component {
 
     handleMouseMoveThrottled = throttle((item) => {
         const datum = JSON.parse(item);
-
         if (datum && datum.title !== this.cacheBarHovered) {
             this.cacheBarHovered = datum.title;
             this.handleBarHover(datum);
@@ -28,9 +27,7 @@ class BoxPlot extends Component {
     }, 50);
 
     handleMouseMove = (event) => {
-        if (!event.target.getAttribute('data-type')) {
-            this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'));
-        }
+        this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'));
     };
 
     handleClick = (event) => {
