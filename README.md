@@ -430,3 +430,7 @@ Fix boxPlot mousemove
 ### 4.0.0
 
 Rename click handlers BoxPlot
+
+### 4.1.0
+
+Export Legends

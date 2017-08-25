@@ -3,6 +3,7 @@ import BarChart from './BarChart';
 import StackedBarChart from './StackedBarChart';
 import BoxPlot from './BoxPlot';
 import ResponsiveWrapper from './ResponsiveWrapper';
+import Legend from './Legends';
 
 export {
     Axes,
@@ -10,4 +11,5 @@ export {
     StackedBarChart,
     BoxPlot,
     ResponsiveWrapper,
+    Legend,
 };
