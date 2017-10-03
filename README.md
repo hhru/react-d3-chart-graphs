@@ -192,6 +192,96 @@ metrics current bar.
 
 - toggleResize - type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
 
+<a name="GanttChart"></a>
+## Gantt Chart
+A Gantt chart is a type of bar chart that illustrates a project schedule.
+ 
+ Consists of the following properties:
+ 
+ - [axesProps.padding](#AxesProps)
+ - data - type: array of object. 
+ 
+     Fields:
+      ```
+     {
+        titleBar: 'BAR_1 bar',
+        key: 'uId', //default titleBar
+        values: [
+             {
+                 title: 'status-1',
+                 dateStart: 'Fri, 10 Apr 2017 18:16:05 GMT',
+                 dateEnd: 'Tue, 12 Apr 2017 19:10:06 GMT',
+             },
+             {
+                 title: 'status-2',
+                 dateStart: 'Tue, 12 Apr 2017 19:10:06 GMT',
+                 dateEnd: 'Tue, 14 Apr 2017 19:10:06 GMT',
+             }
+         ]
+     }
+      ```
+- stackColors -type: object. It is map colors to title data.
+    Example:
+    ```
+    stackColors = {
+        status-1: {
+            color: '#607D8B', //bar color
+            legend: 'status first', // legend text
+        },
+        status-2: {
+            color: '#4CAF50',
+            legend: 'status second',
+        },
+    }
+    ```
+- paddingMultiplier - type: Number (from 0 to 1). Default value = 0. Specifies an indent between bars.
+- margins - type: object. Set canvas margins.
+    Fields (default values):
+     ```
+        {
+            top: 10,
+            right: 10,
+            bottom: 150,
+            left: 80
+        }
+     ```
+- handleBarClick - The click event is raised when the user clicks on the canvas. If user clicked on bar
+argument - item of data and metrics current bar and titleBar is a title of stack bars.
+    Fields :
+    ```
+    {
+        metrics: {
+            left: 548
+            top: 129
+            width: 52
+        },
+        title: 'title chart',
+        dateStart: 'Tue, 12 Apr 2017 19:10:06 GMT',
+        dateEnd: 'Tue, 14 Apr 2017 19:10:06 GMT',
+        titleBar: 'first bar'
+    }
+    ```
+    If user click on canvas without bar, argument is `null`
+
+- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - item of data and 
+metrics current bar.
+    ```
+    {
+        metrics: {
+            left: 548
+            top: 129
+            width: 52
+        },
+        title: 'title chart',
+        dateStart: 'Tue, 12 Apr 2017 19:10:06 GMT',
+        dateEnd: 'Tue, 14 Apr 2017 19:10:06 GMT',
+        titleBar: 'first bar'
+    }
+    ```
+    If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
+
+- toggleResize - type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
+
 <a name="BoxPlot"></a>
 ## Box Plot
 Bar graphs is a method for graphically depicting groups of numerical data through their quartiles.
@@ -434,3 +524,7 @@ Rename click handlers BoxPlot
 ### 4.1.0
 
 Export Legends
+
+### 4.2.0
+
+Add Gantt Chart
