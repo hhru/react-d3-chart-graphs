@@ -37,7 +37,7 @@ const Axes = ({scales, margins, svgDimensions, legend, padding, ticksCount, tick
         padding: padding && padding.yAxis !== undefined ? padding.yAxis : DEFAULT_PADDING,
         ticksCount: ticksCount && ticksCount.hasOwnProperty('yAxis') ? ticksCount.yAxis : TICKS_COUNT,
         tickFormat: tickFormat && typeof tickFormat.yAxis === 'function' ? tickFormat.yAxis : defaultTickFormat,
-};
+    };
 
     return (
         <g>

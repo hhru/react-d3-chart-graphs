@@ -7,10 +7,10 @@ const webpackWatch = spawn('webpack', ['--watch'], {
     cwd: './',
     env: process.env,
 });
-const example = spawn('yarn', ['start', ], {
-    cwd: './examples'
-});
 
+const example = spawn('yarn', ['start', ], {
+    cwd: './examples',
+});
 
 webpackWatch.stdout.on('data', (data) => {
     console.log(`WebpackWatch stdout: ${data}`);

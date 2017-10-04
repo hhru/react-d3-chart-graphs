@@ -8,6 +8,8 @@ const Legend = styled.div`
     margin-left: ${props => `${props.left}px`};
 `;
 
+const DEFAULT_COLOR = '#37474F';
+
 export default class Legends extends Component {
     render() {
         const {stackColors, left} = this.props;
@@ -16,9 +18,9 @@ export default class Legends extends Component {
         for (let item in stackColors) {
             barDescriptions.push(
                 <LegendItem
-                    key={stackColors[item].color}
-                    color={stackColors[item].color}
-                    text={stackColors[item].legend} />
+                    key={stackColors[item] && stackColors[item].color || DEFAULT_COLOR}
+                    color={stackColors[item] && stackColors[item].color || DEFAULT_COLOR}
+                    text={stackColors[item] && stackColors[item].legend} />
             );
         }
 
