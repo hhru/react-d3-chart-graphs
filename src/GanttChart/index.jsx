@@ -38,7 +38,7 @@ class Chart extends Component {
 
     render() {
         const { data, axesProps, margins, stackColors, paddingMultiplier, fillOpacity } = this.props;
-        const { legend, padding, tickFormat } = axesProps;
+        const { legend, padding, tickFormat, ticksCount } = axesProps;
         const defaultMargins = { top: 10, right: 10, bottom: 150, left: 80 };
         const canvasMargins = margins || defaultMargins;
         const svgDimensions = {
@@ -57,9 +57,11 @@ class Chart extends Component {
         const yDomain = data.map((item) => (item.titleBar));
         const datesDomain = d3extent(datePlainList, d => new Date(d));
 
-        const ticksCount = {
-            xAxis: Math.min(Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)), 60),
-            yAxis: data.length,
+        const AxesTicksCount = {
+            xAxis: Math.min(
+                Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)),
+                (ticksCount && ticksCount.xAxis) || 30),
+            yAxis: (ticksCount && ticksCount.yAxis) || data.length,
         };
 
         const xScale = scaleTime()
@@ -86,7 +88,7 @@ class Chart extends Component {
                         scales={{xScale, yScale}}
                         padding={padding}
                         margins={canvasMargins}
-                        ticksCount={ticksCount}
+                        ticksCount={AxesTicksCount}
                         tickFormat={tickFormat}
                         svgDimensions={svgDimensions}
                         legend={legend} />

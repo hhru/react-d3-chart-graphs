@@ -43,7 +43,6 @@ const axesProps = {
         xAxis: 5,
         yAxis: 5,
     },
-    ticksCount: 6,
     tickFormat: {
         xAxis: timeFormat('%d %B %y'),
     },

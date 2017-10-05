@@ -7,7 +7,7 @@ Allows you to easily build the following graph:
 - [Box Plot](#BoxPlot)
 
 <img src="https://user-images.githubusercontent.com/3080207/29460770-d85faf6a-8431-11e7-9204-be7c4a43220e.png">
- 
+  
 <a name="BarChart"></a>
 ## Bar Chart
 A bar chart or bar graph is a chart or graph that presents grouped data with rectangular bars with lengths proportional 
@@ -194,6 +194,7 @@ metrics current bar.
 
 <a name="GanttChart"></a>
 ## Gantt Chart
+<img src="https://user-images.githubusercontent.com/3080207/31215926-38a5dcb6-a9ba-11e7-8753-bf85bff54b12.png">
 A Gantt chart is a type of bar chart that illustrates a project schedule.
  
  Consists of the following properties:
@@ -528,3 +529,7 @@ Export Legends
 ### 4.2.0
 
 Add Gantt Chart
+
+### 4.2.1
+
+Add tickCount props to Axes GanttChart
