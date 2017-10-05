@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {scaleBand, scaleLinear} from 'd3-scale';
+import {scaleBand, scaleLinear, scalePow} from 'd3-scale';
 import {interpolateLab} from 'd3-interpolate';
 import throttle from 'lodash.throttle';
 
@@ -12,30 +12,43 @@ const COLOR_SCALE_MAX_DEFAULT = '#00BCD4';
 
 class BoxPlot extends Component {
     xScale = scaleBand();
-    yScale = scaleLinear();
-    handleBarHover = this.props.handleBarHover ? this.props.handleBarHover.bind(null) : () => {};
+    yScale = scalePow();
 
-    handleMouseMoveThrottled = throttle((item) => {
-        const datum = JSON.parse(item);
-        if (datum && datum.title !== this.cacheBarHovered) {
-            this.cacheBarHovered = datum.title;
-            this.handleBarHover(datum);
-        } else if (datum === null && this.cacheBarHovered !== null) {
-            this.cacheBarHovered = datum;
-            this.handleBarHover(datum);
+    handleMouseMoveThrottled = throttle((type, data) => {
+        const datum = JSON.parse(data);
+
+        if (
+            (datum && datum.title === this.prevHoverTitle || datum === null && this.prevHoverTitle === null) &&
+            (type && type === this.prevHoverType) || (type === null && this.prevHoverType === null)
+        ) {
+            return;
+        } else {
+            this.prevHoverTitle = datum ? datum.title : null;
+            this.prevHoverType = type;
+        }
+
+        if (this.props.handleMaxOutlierHover && type === 'outlier-max') {
+            this.props.handleMaxOutlierHover(datum);
+        } else if (this.props.handleMinOutlierHover && type === 'outlier-min') {
+            this.props.handleMinOutlierHover(datum);
+        } else if (this.props.handleBarHover) {
+            this.props.handleBarHover(datum);
         }
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'));
+        this.handleMouseMoveThrottled(
+            event.target.getAttribute('data-type'),
+            event.target.getAttribute('data-datum')
+        );
     };
 
     handleClick = (event) => {
         const type = event.target.getAttribute('data-type');
-        if (this.props.handleEjectionMaxClick && type === 'ejection-max') {
-            this.props.handleEjectionMaxClick(JSON.parse(event.target.getAttribute('data-datum')));
-        } else if (this.props.handleEjectionMinClick && type === 'ejection-min') {
-            this.props.handleEjectionMinClick(JSON.parse(event.target.getAttribute('data-datum')));
+        if (this.props.handleMaxOutlierClick && type === 'outlier-max') {
+            this.props.handleMaxOutlierClick(JSON.parse(event.target.getAttribute('data-datum')));
+        } else if (this.props.handleMinOutlierClick && type === 'outlier-min') {
+            this.props.handleMinOutlierClick(JSON.parse(event.target.getAttribute('data-datum')));
         } else if (this.props.handleBarClick && type === 'bar') {
             this.props.handleBarClick(JSON.parse(event.target.getAttribute('data-datum')));
         }
@@ -48,21 +61,22 @@ class BoxPlot extends Component {
             axesProps,
             margins,
             handleBarClick,
-            handleEjectionMinClick,
-            handleEjectionMaxClick,
+            handleMinOutlierClick,
+            handleMaxOutlierClick,
             colorScale } = this.props;
-        const {legend, padding, ticksCount, tickFormat} = axesProps;
+        const {legend, padding, ticksCount, tickFormat, exponent} = axesProps;
         const defaultPaddingMultiplier = 0;
+        const defaultExponent = 1;
         const defaultMargins = {top: 10, right: 10, bottom: 150, left: 80};
         const canvasMargins = margins || defaultMargins;
         const svgDimensions = {
             width: Math.max(this.props.parentWidth, 300),
             height: 500,
         };
-        const isClickable = handleBarClick || handleEjectionMinClick || handleEjectionMaxClick;
+        const isClickable = handleBarClick || handleMinOutlierClick || handleMaxOutlierClick;
 
-        let maxValue = Math.max(...data.reduce((result, values) => {
-            result.push((values.values.ejection && values.values.ejection.max) || values.values.max);
+        let maxValue = Math.max(...data.reduce((result, data) => {
+            result.push((data.outliers && data.outliers.max) ? data.outliers.max.value : data.values.max);
 
             return result;
         }, []));
@@ -77,6 +91,7 @@ class BoxPlot extends Component {
             .range([canvasMargins.left, svgDimensions.width - canvasMargins.right]);
 
         const yScale = this.yScale
+            .exponent(exponent || defaultExponent)
             .domain([0, maxValue])
             .range([svgDimensions.height - canvasMargins.bottom, canvasMargins.top])
             .nice(4);

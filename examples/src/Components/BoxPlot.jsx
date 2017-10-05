@@ -12,10 +12,10 @@ const items = [
                 min: 20,
                 max: 45,
             },
-            ejection: {
-                min: 3,
-                max: 290,
-            },
+        },
+        outliers: {
+            min: 3,
+            max: 290,
         },
     },
     {
@@ -28,10 +28,10 @@ const items = [
                 min: 24,
                 max: 95,
             },
-            ejection: {
-                min: 1,
-                max: 250,
-            },
+        },
+        outliers: {
+            min: 1,
+            max: 250,
         },
     },
 ];
@@ -68,8 +68,8 @@ export default () => {
             data={items}
             handleBarHover={handleBarHover}
             handleBarClick={handleBarClick}
-            handleEjectionMaxClick={handleBarClick}
-            handleEjectionMinClick={handleBarClick}
+            handleMaxOurlierClick={handleBarClick}
+            handleMinOutlierClick={handleBarClick}
             colorScale={colorScale}
             paddingMultiplier={0.5} />
     );

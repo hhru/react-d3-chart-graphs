@@ -34,32 +34,32 @@ class BoxPlotItem extends Component {
         const yMedian = yScale(median);
         const {height} = svgDimensions;
         const barHeight = datum.values.quartiles.max - datum.values.quartiles.min;
-        const ejectionMax = yScale(datum.values.ejection.max);
-        const ejectionMin = yScale(datum.values.ejection.min);
+        const maxOutlier = (datum.outliers && datum.outliers.max) ? yScale(datum.outliers.max.value) : null;
+        const minOutlier = (datum.outliers && datum.outliers.min) ? yScale(datum.outliers.min.value) : null;
 
         return (
             <g>
-                { datum.values.ejection && datum.values.ejection.max ?
+                { maxOutlier ?
                     <Circle
-                        data-type='ejection-max'
+                        data-type='outlier-max'
                         data-datum={JSON.stringify({
                             ...datum,
                             titleBar: this.props.titleBar,
-                            metrics: {left: xPosition, top: ejectionMax, width: CIRCLE_RADIUS}})}
+                            metrics: {left: xPosition, top: maxOutlier, width: CIRCLE_RADIUS}})}
                         r={CIRCLE_RADIUS}
                         cx={xPosition}
-                        cy={ejectionMax} /> : ''}
+                        cy={maxOutlier} /> : ''}
 
-                { datum.values.ejection && datum.values.ejection.min ?
+                { minOutlier ?
                     <Circle
-                        data-type='ejection-min'
+                        data-type='outlier-min'
                         data-datum={JSON.stringify({
                             ...datum,
                             titleBar: this.props.titleBar,
-                            metrics: {left: xPosition, top: ejectionMin, width: CIRCLE_RADIUS}})}
+                            metrics: {left: xPosition, top: minOutlier, width: CIRCLE_RADIUS}})}
                         r={CIRCLE_RADIUS}
                         cx={xPosition}
-                        cy={ejectionMin} /> : ''}
+                        cy={minOutlier} /> : ''}
                 <Line
                     className='center'
                     x1={xPosition}

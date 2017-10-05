@@ -346,15 +346,15 @@ Argument - item of data and metrics current bar.
                  min: 15,
                  max: 40,
              },
-             ejection: {
-                 min: 2,
-                 max: 220,
-             }
+        },
+        outliers: {
+            min: 2,
+            max: 220,
         },
         titleBar: "first bar"
     }
     ```
-- handleEjectionMaxClick | handleEjectionMinClick - The click event is raised when the user clicks on the ejection.
+- handleMaxOutlierClick | handleMinOutlierClick - The click event is raised when the user clicks on the outlier.
  Argument - item of data and metrics current Circle.
   ```
      {
@@ -372,10 +372,10 @@ Argument - item of data and metrics current bar.
                  min: 15,
                  max: 40,
              },
-             ejection: {
-                 min: 2,
-                 max: 220,
-             }
+         },
+         outliers: {
+             min: 2,
+             max: 220,
          }
      }
     ```
@@ -398,10 +398,10 @@ metrics current bar.
                 min: 15,
                 max: 40,
             },
-            ejection: {
-                min: 2,
-                max: 220,
-            }
+        },
+        outliers: {
+            min: 2,
+            max: 220,
         }
     }
     ```
@@ -533,3 +533,7 @@ Add Gantt Chart
 ### 4.2.1
 
 Add tickCount props to Axes GanttChart
+
+### 5.0.0
+
+Rename ejections to outliers, add outliers' hover handlers
