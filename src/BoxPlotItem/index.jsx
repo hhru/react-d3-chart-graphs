@@ -11,55 +11,46 @@ const Line = styled.line`
 
 const Circle = styled.circle`
     fill: white;
-    fill-opacity: 0;
+    fill-opacity: 1;
     stroke: #000;
     stroke-width: 1px;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 const CIRCLE_RADIUS = 5;
 
 class BoxPlotItem extends Component {
     render() {
-        const {scales, datum, margins, isClickable, svgDimensions, colorScale} = this.props;
+        const {scales, datum, isClickable, colorScale} = this.props;
         const {xScale, yScale} = scales;
-        const min = datum.values.min;
-        const max = datum.values.max;
+        const min = datum.numbers.min;
+        const max = datum.numbers.max;
         const xPosition = xScale(datum.title) + (xScale.bandwidth() / 2);
         const yMax = yScale(max);
         const yMin = yScale(min);
         const width = xScale.bandwidth();
         const x1Position = xPosition - (width / 2);
         const x2Position = xPosition + (width / 2);
-        const median = datum.values.median;
+        const median = datum.numbers.median;
         const yMedian = yScale(median);
-        const {height} = svgDimensions;
-        const barHeight = datum.values.quartiles.max - datum.values.quartiles.min;
-        const maxOutlier = (datum.outliers && datum.outliers.max) ? yScale(datum.outliers.max.value) : null;
-        const minOutlier = (datum.outliers && datum.outliers.min) ? yScale(datum.outliers.min.value) : null;
+        const barHeight = yScale(datum.numbers.quartiles[0]) - yScale(datum.numbers.quartiles[1]);
+
+        const outliers = datum.outliers && datum.outliers.map((outlier) => {
+            return outlier.value ? <Circle
+                key={outlier.value}
+                data-type='outlier'
+                data-datum={JSON.stringify({
+                    outlier,
+                    metrics: {left: xPosition, top: yScale(outlier.value), width: CIRCLE_RADIUS}})}
+                r={CIRCLE_RADIUS}
+                cx={xPosition}
+                cy={yScale(outlier.value)} /> : null;
+        });
 
         return (
             <g>
-                { maxOutlier ?
-                    <Circle
-                        data-type='outlier-max'
-                        data-datum={JSON.stringify({
-                            ...datum,
-                            titleBar: this.props.titleBar,
-                            metrics: {left: xPosition, top: maxOutlier, width: CIRCLE_RADIUS}})}
-                        r={CIRCLE_RADIUS}
-                        cx={xPosition}
-                        cy={maxOutlier} /> : ''}
-
-                { minOutlier ?
-                    <Circle
-                        data-type='outlier-min'
-                        data-datum={JSON.stringify({
-                            ...datum,
-                            titleBar: this.props.titleBar,
-                            metrics: {left: xPosition, top: minOutlier, width: CIRCLE_RADIUS}})}
-                        r={CIRCLE_RADIUS}
-                        cx={xPosition}
-                        cy={minOutlier} /> : ''}
                 <Line
                     className='center'
                     x1={xPosition}
@@ -87,13 +78,14 @@ class BoxPlotItem extends Component {
                 <Bar
                     key={datum.title}
                     x={xScale(datum.title)}
-                    y={yScale(datum.values.quartiles.max)}
+                    y={yScale(datum.numbers.quartiles[1])}
                     datum={datum}
                     isClickable={isClickable}
-                    height={height - margins.bottom - yScale(barHeight)}
+                    height={barHeight}
                     width={xScale.bandwidth()}
                     fill={colorScale(max)}
                     fillOpacity='0.7' />
+                {outliers}
             </g>
         );
     }

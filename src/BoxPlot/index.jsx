@@ -14,41 +14,31 @@ class BoxPlot extends Component {
     xScale = scaleBand();
     yScale = scalePow();
 
-    handleMouseMoveThrottled = throttle((type, data) => {
-        const datum = JSON.parse(data);
+    handleMouseMoveThrottled = throttle((target) => {
+        const type = target.getAttribute('data-type');
+        const datum = JSON.parse(target.getAttribute('data-datum'));
 
-        if (
-            (datum && datum.title === this.prevHoverTitle || datum === null && this.prevHoverTitle === null) &&
-            (type && type === this.prevHoverType) || (type === null && this.prevHoverType === null)
-        ) {
+        if (target === this.prevEventTarget) {
             return;
         } else {
-            this.prevHoverTitle = datum ? datum.title : null;
-            this.prevHoverType = type;
+            this.prevEventTarget = target;
         }
 
-        if (this.props.handleMaxOutlierHover && type === 'outlier-max') {
-            this.props.handleMaxOutlierHover(datum);
-        } else if (this.props.handleMinOutlierHover && type === 'outlier-min') {
-            this.props.handleMinOutlierHover(datum);
+        if (this.props.handleOutlierHover && type === 'outlier') {
+            this.props.handleOutlierHover(datum);
         } else if (this.props.handleBarHover) {
             this.props.handleBarHover(datum);
         }
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(
-            event.target.getAttribute('data-type'),
-            event.target.getAttribute('data-datum')
-        );
+        this.handleMouseMoveThrottled(event.target);
     };
 
     handleClick = (event) => {
         const type = event.target.getAttribute('data-type');
-        if (this.props.handleMaxOutlierClick && type === 'outlier-max') {
-            this.props.handleMaxOutlierClick(JSON.parse(event.target.getAttribute('data-datum')));
-        } else if (this.props.handleMinOutlierClick && type === 'outlier-min') {
-            this.props.handleMinOutlierClick(JSON.parse(event.target.getAttribute('data-datum')));
+        if (this.props.handleOutlierClick && type === 'outlier') {
+            this.props.handleOutlierClick(JSON.parse(event.target.getAttribute('data-datum')));
         } else if (this.props.handleBarClick && type === 'bar') {
             this.props.handleBarClick(JSON.parse(event.target.getAttribute('data-datum')));
         }
@@ -61,8 +51,7 @@ class BoxPlot extends Component {
             axesProps,
             margins,
             handleBarClick,
-            handleMinOutlierClick,
-            handleMaxOutlierClick,
+            handleOutlierClick,
             colorScale } = this.props;
         const {legend, padding, ticksCount, tickFormat, exponent} = axesProps;
         const defaultPaddingMultiplier = 0;
@@ -73,11 +62,12 @@ class BoxPlot extends Component {
             width: Math.max(this.props.parentWidth, 300),
             height: 500,
         };
-        const isClickable = handleBarClick || handleMinOutlierClick || handleMaxOutlierClick;
+        const isClickable = handleBarClick || handleOutlierClick;
 
         let maxValue = Math.max(...data.reduce((result, data) => {
-            result.push((data.outliers && data.outliers.max) ? data.outliers.max.value : data.values.max);
-
+            if (data.outliers) {
+                result.push(...data.outliers.map(outlier => outlier.value));
+            }
             return result;
         }, []));
 
