@@ -354,7 +354,7 @@ Argument - item of data and metrics current bar.
         titleBar: "first bar"
     }
     ```
-- handleMaxOutlierClick | handleMinOutlierClick - The click event is raised when the user clicks on the outlier.
+- handleOutlierClick - The click event is raised when the user clicks on the outlier.
  Argument - item of data and metrics current Circle.
   ```
      {
@@ -537,3 +537,7 @@ Add tickCount props to Axes GanttChart
 ### 5.0.0
 
 Rename ejections to outliers, add outliers' hover handlers
+
+### 5.1.0
+
+Introduce handleOutlierClick and handleOutlierHover, update box plot chart's appearance
