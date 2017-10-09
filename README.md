@@ -61,8 +61,8 @@ argument - item of data and metrics current bar.
     ```
     If user click on canvas without bar, argument is `null`
 
-- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - item of data and 
-metrics current bar.
+- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, first argument - item of data and 
+metrics current bar, second - event data.
     ```
     {
         metrics: {
@@ -72,6 +72,10 @@ metrics current bar.
         },
         title: "title chart",
         value: 7
+    },
+    event: {
+        clientX,
+        clientY,
     }
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
@@ -174,8 +178,8 @@ argument - item of data and metrics current bar and titleBar is a title of stack
     ```
     If user click on canvas without bar, argument is `null`
 
-- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - item of data and 
-metrics current bar.
+- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, first argument - item of data and 
+metrics current bar, second - event data.metrics current bar.
     ```
     {
         metrics: {
@@ -186,6 +190,10 @@ metrics current bar.
         title: "title chart",
         value: 7,
         titleBar: "first bar"
+    },
+    event: {
+        clientX,
+        clientY,
     }
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
@@ -264,8 +272,8 @@ argument - item of data and metrics current bar and titleBar is a title of stack
     ```
     If user click on canvas without bar, argument is `null`
 
-- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - item of data and 
-metrics current bar.
+- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - first argument - item of data and 
+metrics current bar, second - event data.
     ```
     {
         metrics: {
@@ -277,6 +285,10 @@ metrics current bar.
         dateStart: 'Tue, 12 Apr 2017 19:10:06 GMT',
         dateEnd: 'Tue, 14 Apr 2017 19:10:06 GMT',
         titleBar: 'first bar'
+    },
+    event: {
+        clientX,
+        clientY,
     }
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
@@ -380,8 +392,8 @@ Argument - item of data and metrics current bar.
      }
     ```
 
-- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, argument - item of data and 
-metrics current bar.
+- handleBarHover - The mouseenter and mouseleave events. If user moved mouse in bar, first argument - item of data and 
+metrics current bar, second - event data.
     ```
     {
         metrics: {
@@ -403,6 +415,10 @@ metrics current bar.
             min: 2,
             max: 220,
         }
+    }, 
+    event: {
+        clientX,
+        clientY,
     }
     ```
     If user mouseleave bar or if user mouseenter on canvas without bar, arguments is `null`
@@ -541,3 +557,8 @@ Rename ejections to outliers, add outliers' hover handlers
 ### 5.1.0
 
 Introduce handleOutlierClick and handleOutlierHover, update box plot chart's appearance
+
+### 5.1.1
+
+Add second argument event to hover
+
