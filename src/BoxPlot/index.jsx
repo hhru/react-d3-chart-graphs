@@ -14,7 +14,7 @@ class BoxPlot extends Component {
     xScale = scaleBand();
     yScale = scalePow();
 
-    handleMouseMoveThrottled = throttle((target) => {
+    handleMouseMoveThrottled = throttle((target, event) => {
         const type = target.getAttribute('data-type');
         const datum = JSON.parse(target.getAttribute('data-datum'));
 
@@ -25,14 +25,14 @@ class BoxPlot extends Component {
         }
 
         if (this.props.handleOutlierHover && type === 'outlier') {
-            this.props.handleOutlierHover(datum);
+            this.props.handleOutlierHover(datum, event);
         } else if (this.props.handleBarHover) {
-            this.props.handleBarHover(datum);
+            this.props.handleBarHover(datum, event);
         }
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(event.target);
+        this.handleMouseMoveThrottled(event.target, {clientX: event.clientX, clientY: event.clientY});
     };
 
     handleClick = (event) => {

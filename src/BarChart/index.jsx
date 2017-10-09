@@ -15,20 +15,23 @@ class Chart extends Component {
     yScale = scaleLinear();
     handleBarHover = this.props.handleBarHover ? this.props.handleBarHover.bind(null) : () => {};
 
-    handleMouseMoveThrottled = throttle((item) => {
+    handleMouseMoveThrottled = throttle((item, event) => {
         const datum = JSON.parse(item);
 
         if (datum && datum.title !== this.cacheBarHovered) {
             this.cacheBarHovered = datum.title;
-            this.handleBarHover(datum);
+            this.handleBarHover(datum, event);
         } else if (datum === null && this.cacheBarHovered !== null) {
             this.cacheBarHovered = datum;
-            this.handleBarHover(datum);
+            this.handleBarHover(datum, event);
         }
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'));
+        this.handleMouseMoveThrottled(
+            event.target.getAttribute('data-datum'),
+            {clientX: event.clientX, clientY: event.clientY}
+        );
     };
 
     handleBarClick = (event) => {
