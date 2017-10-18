@@ -4,35 +4,31 @@ import {BoxPlot} from '@hh.ru/react-d3-chart-graphs';
 const items = [
     {
         title: 'First bar',
-        values: {
+        numbers: {
             min: 15,
-            max: 118,
+            max: 218,
             median: 30,
-            quartiles: {
-                min: 20,
-                max: 45,
-            },
+            quartiles: [20, 45],
         },
-        outliers: {
-            min: 3,
-            max: 290,
-        },
+        outliers: [{
+            key: 'First',
+            value: 289,
+            title: 'text',
+        }],
     },
     {
         title: 'Second Bar',
-        values: {
+        numbers: {
             min: 13,
             max: 222,
             median: 70,
-            quartiles: {
-                min: 24,
-                max: 95,
-            },
+            quartiles: [24, 95],
         },
-        outliers: {
-            min: 1,
-            max: 250,
-        },
+        outliers: [{
+            key: 'Seсond',
+            value: 236,
+            title: 'text',
+        }],
     },
 ];
 
@@ -46,11 +42,6 @@ const axesProps = {
         xAxis: 'Label bottom axis',
         yAxis: 'Label left axis',
     },
-    padding: {
-        xAxis: 20,
-        yAxis: 20,
-    },
-    ticksCount: 6,
 };
 
 export default () => {

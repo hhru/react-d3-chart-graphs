@@ -20,6 +20,7 @@ const Circle = styled.circle`
 `;
 
 const CIRCLE_RADIUS = 5;
+const QUARTILIES_ARRAY_LENGTH = 2;
 
 class BoxPlotItem extends Component {
     render() {
@@ -35,7 +36,11 @@ class BoxPlotItem extends Component {
         const x2Position = xPosition + (width / 2);
         const median = datum.numbers.median;
         const yMedian = yScale(median);
-        const barHeight = yScale(datum.numbers.quartiles[0]) - yScale(datum.numbers.quartiles[1]);
+        let barHeight = 0;
+
+        if (datum.numbers.quartiles && datum.numbers.quartiles.length === QUARTILIES_ARRAY_LENGTH) {
+            barHeight = yScale(datum.numbers.quartiles[0]) - yScale(datum.numbers.quartiles[1]);
+        }
 
         const outliers = datum.outliers && datum.outliers.map((outlier) => {
             return outlier.value ? <Circle
@@ -48,6 +53,14 @@ class BoxPlotItem extends Component {
                 cx={xPosition}
                 cy={yScale(outlier.value)} /> : null;
         });
+
+        if (!datum.numbers || datum.quartiles || !datum.numbers.max || !datum.numbers.min) {
+            return (
+                <g>
+                    {outliers}
+                </g>
+            );
+        }
 
         return (
             <g>

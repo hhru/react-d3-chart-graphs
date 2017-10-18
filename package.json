@@ -1,6 +1,6 @@
 {
   "name": "@hh.ru/react-d3-chart-graphs",
-  "version": "5.1.1",
+  "version": "5.1.3",
   "description": "A javascript library for building charts components made with React.js and D3.js",
   "main": "dist/index.js",
   "style": "dist/styles.css",
@@ -67,8 +67,8 @@
     "d3-selection": "^1.1.0",
     "d3-time": "^1.0.7",
     "lodash.throttle": "^4.1.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "styled-components": "^2.1.1"
   }
 }

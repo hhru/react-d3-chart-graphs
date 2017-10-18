@@ -65,11 +65,16 @@ class BoxPlot extends Component {
         const isClickable = handleBarClick || handleOutlierClick;
 
         let maxValue = Math.max(...data.reduce((result, data) => {
-            if (data.outliers) {
+            if (data.outliers.length !== 0) {
                 result.push(...data.outliers.map(outlier => outlier.value));
+            }
+            if (data.numbers && data.numbers.max) {
+                result.push(data.numbers.max);
             }
             return result;
         }, []));
+        
+        console.log(maxValue)
 
         if (!isFinite(maxValue)) {
             maxValue = 0;
@@ -92,17 +97,19 @@ class BoxPlot extends Component {
                 colorScale && colorScale.max || COLOR_SCALE_MAX_DEFAULT])
             .interpolate(interpolateLab);
 
-        const whiskers = data.map(datum =>
-            <Whisker
-                key={datum.title}
-                isClickable={!!handleBarClick}
-                scales={{xScale, yScale}}
-                margins={canvasMargins}
-                datum={datum}
-                maxValue={maxValue}
-                colorScale={colorScaleInterpolate}
-                svgDimensions={svgDimensions} />
-        );
+        const whiskers = data.map((datum) => {
+            return (
+                <Whisker
+                    key={datum.title}
+                    isClickable={!!handleBarClick}
+                    scales={{xScale, yScale}}
+                    margins={canvasMargins}
+                    datum={datum}
+                    maxValue={maxValue}
+                    colorScale={colorScaleInterpolate}
+                    svgDimensions={svgDimensions} />
+            );
+        });
 
         return (
             <svg

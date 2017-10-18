@@ -308,15 +308,17 @@ Bar graphs is a method for graphically depicting groups of numerical data throug
       ```
      {
          title: 'First bar',
-         values: {
-             min: 7,
-             max: 118,
-             median: 20,
-             quartiles: {
-                 min: 15,
-                 max: 40,
-             },
+         numbers: {
+             min: 15,
+             max: 218,
+             median: 30,
+             quartiles: [20, 45],
          },
+         outliers: [{
+             key: 'First',
+             value: 289,
+             title: 'text',
+         }],
      }
       ```
 - colorScale - type Object. Sets the color of the bar, depending on the value on the y-axis with the help of the function
@@ -561,4 +563,8 @@ Introduce handleOutlierClick and handleOutlierHover, update box plot chart's app
 ### 5.1.1
 
 Add second argument event to hover
+
+### 5.1.3
+
+Update react and react-dom to 16.0 version and fix box plot
 
