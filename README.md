@@ -568,3 +568,6 @@ Add second argument event to hover
 
 Update react and react-dom to 16.0 version and fix box plot
 
+### 5.1.4
+
+Bug fixes

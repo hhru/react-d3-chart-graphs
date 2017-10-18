@@ -73,8 +73,6 @@ class BoxPlot extends Component {
             }
             return result;
         }, []));
-        
-        console.log(maxValue)
 
         if (!isFinite(maxValue)) {
             maxValue = 0;
