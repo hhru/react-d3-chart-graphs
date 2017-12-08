@@ -58,15 +58,29 @@ class Chart extends PureComponent {
             maxValue = 0;
         }
 
+        data.forEach((datum, index) => {
+            datum.index = index;
+        });
+
         const xScale = this.xScale
             .padding(paddingMultiplier || defaultPaddingMultiplier)
-            .domain(data.map(d => d.titleBar))
+            .domain(data.map(d => d.index))
             .range([canvasMargins.left, svgDimensions.width - canvasMargins.right]);
 
         const yScale = this.yScale
             .domain([0, maxValue])
             .range([svgDimensions.height - canvasMargins.bottom, canvasMargins.top])
             .nice(4);
+
+        const tickFormatWrapper = {
+            xAxis: function(index) {
+                if (tickFormat && typeof tickFormat.xAxis === 'function') {
+                    return tickFormat.xAxis(data[index].titleBar);
+                }
+                return data[index].titleBar;
+            },
+            yAxis: tickFormat.yAxis
+        };
 
         return (
             <div>
@@ -82,7 +96,7 @@ class Chart extends PureComponent {
                         padding={padding}
                         margins={canvasMargins}
                         ticksCount={ticksCount}
-                        tickFormat={tickFormat}
+                        tickFormat={tickFormatWrapper}
                         svgDimensions={svgDimensions}
                         legend={legend} />
                     <StackedBars

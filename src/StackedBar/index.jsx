@@ -19,7 +19,7 @@ export default class StackedBar extends Component {
                     key={(data.key || data.titleBar) + datum.title}
                     isClickable={isClickable}
                     datum={datum}
-                    x={xScale(data.titleBar)}
+                    x={xScale(data.index)}
                     y={yScale(previsionHeight)}
                     height={itemHeight}
                     width={xScale.bandwidth()}
