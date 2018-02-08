@@ -6,6 +6,7 @@ import BarChart from './Components/BarChart';
 import StackedBarChart from './Components/StackedBarChart';
 import BoxPlot from './Components/BoxPlot';
 import GanttChart from './Components/GanttChart';
+import LineChart from './Components/LineChart';
 
 import '@hh.ru/react-d3-chart-graphs/styles.css';
 
@@ -23,9 +24,10 @@ class App extends Component {
                 <StackedBarChart />
                 <h1>Example Box plots</h1>
                 <BoxPlot />
-    
                 <h1>Example Gantt chart</h1>
                 <GanttChart />
+                <h1>Example Line chart time</h1>
+                <LineChart />
             </div>
         );
     }

@@ -79,7 +79,7 @@ class Chart extends PureComponent {
                 }
                 return data[index].titleBar;
             },
-            yAxis: tickFormat.yAxis
+            yAxis: tickFormat && (tickFormat.yAxis ? tickFormat.yAxis : undefined)
         };
 
         return (
