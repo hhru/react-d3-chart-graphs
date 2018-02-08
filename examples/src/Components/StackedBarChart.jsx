@@ -187,6 +187,8 @@ export default () => {
     const handleBarClick = (item) => {
         console.log('clicked', item);
     };
+    
+    console.log(axesProps)
 
     return (
         <div>

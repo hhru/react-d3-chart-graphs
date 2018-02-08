@@ -4,7 +4,10 @@ Allows you to easily build the following graph:
 
 - [Bar Chart](#BarChart)
 - [Stacked Bar Chart](#StackedBarChart)
+- [GanttChart](#GanttChart)
 - [Box Plot](#BoxPlot)
+- [ResponsiveWrapper](#ResponsiveWrapper)
+- [LineChartTime](#LineChartTime)
 
 <img src="https://user-images.githubusercontent.com/3080207/29460770-d85faf6a-8431-11e7-9204-be7c4a43220e.png">
   
@@ -493,6 +496,70 @@ class MyComponent extends Component {
 
 export default ResponsiveWrapper(MyComponent);
 ```
+<a name="LineChartTime"></a>
+## Line Chart Time
+Line charts are used to display trends over time. Use a "line chart time" if you have dates on the horizontal axis.
+
+Consists of the following properties:
+
+- [axesProps.padding](#AxesProps)
+- data - type: array of object. 
+
+    Fields:
+     ```
+    {
+        title: 'First',
+        values: [
+            {
+                date: 'Fri, 30 Jun 2017 00:00:00 GMT',
+                value: 0.04918032786885246,
+            },
+        ],
+    }
+     ```
+- margins - type: object. Set canvas margins.
+    Fields (default values):
+     ```
+        {
+            top: 10,
+            right: 10,
+            bottom: 150,
+            left: 80
+        }
+     ```
+- stackColors -type: object. It is map colors to title data.
+    Example:
+    ```
+    stackColors = {
+        First: {
+            color: '#607D8B', //bar color
+            legend: 'some bar 1', // legend text
+        },
+    }
+    ```
+- hideCircles -type: Boolean. Hide "circles" data point.
+- handleCircleHover - The mouseenter and mouseleave events. If user moved mouse in Circle, first argument - item of data
+and metrics current Circle, second - event data.
+    ```
+    {
+        metrics: {
+            left: 548
+            top: 129
+            width: 52
+        },
+        title: 'First',
+        item: {
+            date: 'Fri, 30 Jun 2017 00:00:00 GMT',
+            value: 0.04918032786885246,
+        }
+    }
+    event: {
+        clientX,
+        clientY,
+    }
+    ```
+    If user mouseleave bar or if user mouseenter on canvas without Circle, arguments is `null`
+- toggleResize - type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
 
 ## Examples and development
     Show /examples/src/Components. This is create-react-app kit. CLI: cd examples && yarn && cd ../ yarn dev
@@ -571,3 +638,7 @@ Update react and react-dom to 16.0 version and fix box plot
 ### 5.1.4
 
 Bug fixes
+
+### 5.2.0
+
+Add chart LineChartTime

@@ -17,8 +17,7 @@ const LegendItemColor = styled.div`
 `;
 
 const LegendItemText = styled.div`
-    display: inline-block;
-    vertical-align: middle;
+    display: inline;
     font-size: 12px;
 `;
 
