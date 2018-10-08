@@ -642,3 +642,7 @@ Bug fixes
 ### 5.2.0
 
 Add chart LineChartTime
+
+### 5.2.1
+
+Make Gantt chart height adaptive

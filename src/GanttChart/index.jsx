@@ -43,7 +43,7 @@ class Chart extends Component {
         const canvasMargins = margins || defaultMargins;
         const svgDimensions = {
             width: Math.max(this.props.parentWidth, 300),
-            height: 500,
+            height: 200 + data.length * 30,
         };
 
         const datePlainList = data.reduce((array, item)=>{
