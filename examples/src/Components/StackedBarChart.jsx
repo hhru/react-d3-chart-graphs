@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StackedBarChart} from '@hh.ru/react-d3-chart-graphs';
+import { StackedBarChart } from '@hh.ru/react-d3-chart-graphs';
 
 const data = [
     {
@@ -41,8 +41,8 @@ const data = [
             {
                 title: 'BAR_9',
                 value: 4,
-            }
-        ]
+            },
+        ],
     },
     {
         titleBar: 'second bar',
@@ -82,8 +82,8 @@ const data = [
             {
                 title: 'BAR_9',
                 value: 5,
-            }
-        ]
+            },
+        ],
     },
     {
         titleBar: 'third bar',
@@ -187,8 +187,8 @@ export default () => {
     const handleBarClick = (item) => {
         console.log('clicked', item);
     };
-    
-    console.log(axesProps)
+
+    console.log(axesProps);
 
     return (
         <div>
@@ -198,7 +198,8 @@ export default () => {
                 handleBarHover={handleBarHover}
                 handleBarClick={handleBarClick}
                 stackColors={stackColors}
-                paddingMultiplier={0.8} />
+                paddingMultiplier={0.8}
+            />
         </div>
-    )
+    );
 };

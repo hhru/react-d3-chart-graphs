@@ -1,21 +1,21 @@
 const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const isDevMode = process.env.NODE_ENV === 'development';
+const PATH_TO_NODE_MODULES = path.resolve(__dirname, 'node_modules');
+const PATH_TO_SRC = path.resolve(__dirname, 'src');
 
-const plugins = [
-    new ExtractTextPlugin('styles.css'),
-];
-
-if (!isDevMode) {
-    plugins.push(new webpack.optimize.UglifyJsPlugin());
-}
+const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, isDevMode ? './examples/node_modules/@hh.ru/react-d3-chart-graphs' : 'dist'),
+        path: path.resolve(
+            __dirname,
+            mode === 'development'
+                ? 'examples/node_modules/@hh.ru/react-d3-chart-graphs'
+                : 'dist'
+        ),
         publicPath: '/dist/',
         filename: 'index.js',
         libraryTarget: 'umd',
@@ -24,30 +24,36 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.jsx'],
+        modules: [PATH_TO_NODE_MODULES, PATH_TO_SRC],
     },
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
+                test: /\.(js|jsx)$/,
+                include: PATH_TO_SRC,
                 loader: 'babel-loader',
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                autoprefixer: false,
-                                importLoaders: 1,
-                                minimize: true,
-                            },
-                        },
-                    ],
-                }),
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader?importLoaders=true',
+                ],
             },
         ],
     },
-    plugins,
+    optimization: {
+        minimizer: mode !== 'development' ? [new UglifyJsPlugin()] : [],
+        splitChunks: {
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
+    },
+    plugins: [new MiniCssExtractPlugin({ filename: '[name].css' })],
 };

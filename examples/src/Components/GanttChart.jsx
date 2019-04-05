@@ -1,6 +1,6 @@
 import React from 'react';
-import {GanttChart} from '@hh.ru/react-d3-chart-graphs';
-import {timeFormat} from 'd3-time-format';
+import { GanttChart } from '@hh.ru/react-d3-chart-graphs';
+import { timeFormat } from 'd3-time-format';
 
 const data = [
     {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {BoxPlot} from '@hh.ru/react-d3-chart-graphs';
+import { BoxPlot } from '@hh.ru/react-d3-chart-graphs';
 
 const items = [
     {
@@ -10,11 +10,13 @@ const items = [
             median: 30,
             quartiles: [20, 45],
         },
-        outliers: [{
-            key: 'First',
-            value: 289,
-            title: 'text',
-        }],
+        outliers: [
+            {
+                key: 'First',
+                value: 289,
+                title: 'text',
+            },
+        ],
     },
     {
         title: 'Second Bar',
@@ -24,11 +26,13 @@ const items = [
             median: 70,
             quartiles: [24, 95],
         },
-        outliers: [{
-            key: 'Seсond',
-            value: 236,
-            title: 'text',
-        }],
+        outliers: [
+            {
+                key: 'Seсond',
+                value: 236,
+                title: 'text',
+            },
+        ],
     },
 ];
 

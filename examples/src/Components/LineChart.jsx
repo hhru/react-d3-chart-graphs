@@ -1,6 +1,6 @@
 import React from 'react';
-import {LineChartTime} from '@hh.ru/react-d3-chart-graphs';
-import {timeFormat} from 'd3-time-format';
+import { LineChartTime } from '@hh.ru/react-d3-chart-graphs';
+import { timeFormat } from 'd3-time-format';
 
 const items = [
     {
@@ -65,7 +65,6 @@ const items = [
     },
 ];
 
-
 const stackColors = {
     First: {
         color: '#607D8B',
@@ -87,7 +86,7 @@ const axesProps = {
         yAxis: 20,
     },
     ticksCount: {
-        xAxis: items[0].values.length
+        xAxis: items[0].values.length,
     },
     tickFormat: {
         xAxis: timeFormat('%d %B %y'),
@@ -99,14 +98,13 @@ export default () => {
         console.log('hovered', item);
     };
 
-
     return (
         <LineChartTime
             axesProps={axesProps}
             data={items}
             stackColors={stackColors}
             handleCircleHover={handleBarHover}
-            paddingMultiplier={0.24} />
+            paddingMultiplier={0.24}
+        />
     );
 };
-

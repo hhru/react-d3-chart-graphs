@@ -1,13 +1,15 @@
-import Axes from './Axes';
-import BarChart from './BarChart';
-import StackedBarChart from './StackedBarChart';
-import BoxPlot from './BoxPlot';
-import GanttChart from './GanttChart';
-import ResponsiveWrapper from './ResponsiveWrapper';
-import LineChartTime from './LineChartTime';
-import Legend from './Legends';
+import Axis from 'components/Axis';
+import Axes from 'components/Axes';
+import BarChart from 'components/BarChart';
+import StackedBarChart from 'components/StackedBarChart';
+import BoxPlot from 'components/BoxPlot';
+import GanttChart from 'components/GanttChart';
+import ResponsiveWrapper from 'components/ResponsiveWrapper';
+import LineChartTime from 'components/LineChartTime';
+import Legend from 'components/Legends';
 
-export {
+export default {
+    Axis,
     Axes,
     BarChart,
     StackedBarChart,
@@ -17,4 +19,3 @@ export {
     GanttChart,
     LineChartTime,
 };
-
