@@ -37,7 +37,7 @@ class Chart extends Component {
     };
 
     render() {
-        const { data, axesProps, margins, stackColors, paddingMultiplier, fillOpacity } = this.props;
+        const { data, axesProps, margins, stackColors, paddingMultiplier, fillOpacity, render } = this.props;
         const { legend, padding, tickFormat, ticksCount } = axesProps;
         const defaultMargins = { top: 10, right: 10, bottom: 150, left: 80 };
         const canvasMargins = margins || defaultMargins;
@@ -105,6 +105,15 @@ class Chart extends Component {
                             stackColors={stackColors}
                             svgDimensions={svgDimensions} />
                     ))}
+                    {render && render({
+                        scales: { xScale, yScale },
+                        isClickable: !!this.handleBarClick,
+                        margins: canvasMargins,
+                        height,
+                        fillOpacity: fillOpacity || DEFAULT_FILL_OPACITY,
+                        stackColors,
+                        svgDimensions,
+                    })}
                 </svg>
             </div>
         );
