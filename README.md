@@ -646,3 +646,7 @@ Add chart LineChartTime
 ### 5.2.1
 
 Make Gantt chart height adaptive
+
+### 5.3.0
+
+Add render prop to Gantt chart.
