@@ -1,16 +1,7 @@
 const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isDevMode = process.env.NODE_ENV === 'development';
-
-const plugins = [
-    new ExtractTextPlugin('styles.css'),
-];
-
-if (!isDevMode) {
-    plugins.push(new webpack.optimize.UglifyJsPlugin());
-}
 
 module.exports = {
     entry: './src/index.js',
@@ -31,23 +22,39 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-react'],
+                    plugins: [
+                        '@babel/plugin-transform-react-jsx',
+                        '@babel/plugin-transform-object-assign',
+                        '@babel/plugin-proposal-object-rest-spread',
+                        '@babel/plugin-proposal-class-properties',
+                    ],
+                },
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                autoprefixer: false,
-                                importLoaders: 1,
-                                minimize: true,
-                            },
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            autoprefixer: false,
+                            importLoaders: 1,
+                            minimize: true,
                         },
-                    ],
-                }),
+                    },
+                    'css-loader',
+                ],
             },
         ],
     },
-    plugins,
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+        }),
+    ],
+    optimization: {
+        minimize: !isDevMode,
+    },
+    mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
 };
