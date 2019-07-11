@@ -1,12 +1,11 @@
 {
-  "presets": [
-    ["es2015"]
-  ],
-  "plugins": [
-    "transform-react-jsx",
-    "transform-object-assign",
-    "transform-object-rest-spread",
-    "transform-class-properties",
-    "babel-plugin-add-module-exports"
-  ]
+    "presets": [
+        ["@babel/preset-react"]
+    ],
+    "plugins": [
+        "@babel/plugin-transform-react-jsx",
+        "@babel/plugin-transform-object-assign",
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-proposal-class-properties"
+    ]
 }

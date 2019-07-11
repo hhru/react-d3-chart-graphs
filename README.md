@@ -562,7 +562,7 @@ and metrics current Circle, second - event data.
 - toggleResize - type Boolean. Forced resizing by the parent, changing the current state to the opposite will resize.
 
 ## Examples and development
-    Show /examples/src/Components. This is create-react-app kit. CLI: cd examples && yarn && cd ../ yarn dev
+    NODE_ENV=development yarn wepack && cd examples && yarn start 
 
 
 ### 0.1.0
@@ -650,3 +650,7 @@ Make Gantt chart height adaptive
 ### 5.3.0
 
 Add render prop to Gantt chart.
+
+### 6.0.0
+
+Updated dependencies

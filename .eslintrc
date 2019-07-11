@@ -1,86 +1,20 @@
 {
-  "parser": "babel-eslint",
-  "extends": [
-    "airbnb"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 7,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true,
-      "classes": true,
-      "experimentalObjectRestSpread": true
+    "root": true,
+    "extends": ["plugin:react/recommended", "@hh.ru/eslint-config"],
+    "rules": {
+        "class-methods-use-this": "off",
+        "react/no-find-dom-node": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "webpack": {
+                "config": "./webpack.config.js"
+            }
+        },
+        "react": {
+            "version": "16.8"
+        }
     }
-  },
-  "globals": {
-    "__DEV__": true
-  },
-  "rules": {
-    "import/no-unresolved": 0,
-    "no-unused-vars": ["error", {
-      "ignoreRestSiblings": true
-    }],
-    "indent": ["error", 4, { "SwitchCase": 1, "VariableDeclarator": 1 }],
-    "max-len": ["error", 120],
-    "arrow-body-style": 0,
-    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
-    "default-case": 0,
-    "padded-blocks": 0,
-    "wrap-iife": ["error", "inside"],
-    "no-restricted-syntax": [
-      "error",
-      "DebuggerStatement",
-      "WithStatement"
-    ],
-    "func-names": 0,
-    "space-before-function-paren": ["error", "never"],
-    "keyword-spacing": ["error", {"overrides": {
-      "catch": {
-        "after": true
-      }
-    }}],
-    "no-console": ["error", { "allow": ["warn", "error"] }],
-    "no-shadow": 0,
-    "import/no-amd": 0,
-    "import/no-extraneous-dependencies": 0,
-    "vars-on-top": 0,
-    "no-underscore-dangle": 0,
-    "space-unary-ops": ["error"],
-    "operator-linebreak": ["error", "after"],
-    "consistent-this": ["error", "that", "self"],
-    "new-cap": ["error", {
-      "capIsNew": false,
-      "properties": false
-    }],
-    "global-require": 0,
-    "newline-per-chained-call": 0,
-    "no-param-reassign": ["error", { "props": false }],
-    "quote-props": ["error", "as-needed", {
-      "keywords": true
-    }],
-    "guard-for-in": ["warn"],
-    "no-empty": ["warn"],
-    "no-prototype-builtins": 0,
-    "dot-notation": ["error", { "allowKeywords": false }],
-    "no-new": ["off"],
-    "camelcase": ["error", { "properties": "always" }],
-    "no-plusplus": ["warn"],
-    "no-mixed-operators": ["warn"],
-    "prefer-const": 0,
-    "object-curly-spacing": 0,
-    "no-use-before-define": 0,
-    "no-confusing-arrow": 0,
-    "no-case-declarations": 0,
-    "consistent-return": 0,
-    "react/prop-types": 0,
-    "react/jsx-indent": ["error", 4],
-    "react/jsx-indent-props": 0,
-    "react/jsx-first-prop-new-line": 0,
-    "react/jsx-closing-bracket-location": 0,
-    "react/prefer-stateless-function": 0,
-    "jsx-quotes": ["error", "prefer-single"],
-    "react/no-did-mount-set-state": 0,
-    "react/jsx-pascal-case": 0,
-    "react/jsx-no-bind": 0
-  }
 }
