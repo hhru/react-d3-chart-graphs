@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-export default ChartComponent => (
+export default (ChartComponent) =>
     class ResponsiveChart extends Component {
         state = {
             containerWidth: null,
-        }
+        };
 
         componentDidMount() {
             this.fitParentContainer();
@@ -12,17 +12,17 @@ export default ChartComponent => (
         }
 
         componentWillUnmount() {
-            window.removeEventListener('resize', this.fitParentContainer)
+            window.removeEventListener('resize', this.fitParentContainer);
         }
 
-        componentWillReceiveProps(nextProps) {
+        UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
             if (this.props.toggleResize !== nextProps.toggleResize) {
                 this.fitParentContainer();
             }
         }
 
         fitParentContainer = () => {
-            const {containerWidth} = this.state;
+            const { containerWidth } = this.state;
             const currentContainerWidth = this.chartContainer.getBoundingClientRect().width;
             const shouldResize = containerWidth !== currentContainerWidth;
             if (shouldResize) {
@@ -30,29 +30,22 @@ export default ChartComponent => (
                     containerWidth: currentContainerWidth,
                 });
             }
-        }
+        };
 
         renderChart() {
             const parentWidth = this.state.containerWidth;
 
-            return (
-                <ChartComponent {...this.props} parentWidth={parentWidth} />
-            );
+            return <ChartComponent {...this.props} parentWidth={parentWidth} />;
         }
 
         getChartContainer = (el) => {
             this.chartContainer = el;
-        }
+        };
 
         render() {
-            const {containerWidth} = this.state;
+            const { containerWidth } = this.state;
             const shouldRenderChart = containerWidth !== null;
 
-            return (
-                <div ref={this.getChartContainer}>
-                    {shouldRenderChart && this.renderChart()}
-                </div>
-            );
+            return <div ref={this.getChartContainer}>{shouldRenderChart && this.renderChart()}</div>;
         }
-    }
-);
+    };

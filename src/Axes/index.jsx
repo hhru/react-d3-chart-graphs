@@ -1,13 +1,13 @@
 import React from 'react';
-import Axis from '../Axis';
+import Axis from 'src/Axis';
 
 const FONT_SIZE_LABEL = 16;
 const DEFAULT_PADDING = 5;
 const TICKS_COUNT = 4;
-const defaultTickFormat = ((value) => (value));
+const defaultTickFormat = (value) => value;
 
-const Axes = ({scales, margins, svgDimensions, legend, padding, ticksCount, tickFormat}) => {
-    const {height, width} = svgDimensions;
+const Axes = ({ scales, margins, svgDimensions, legend, padding, ticksCount, tickFormat }) => {
+    const { height, width } = svgDimensions;
     const xProps = {
         orient: 'Bottom',
         scale: scales.xScale,

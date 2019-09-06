@@ -1,19 +1,37 @@
-import React, {Component} from 'react';
-import {scaleBand, scaleTime} from 'd3-scale';
-import {interpolateLab} from 'd3-interpolate';
-import {extent as d3extent} from 'd3-array';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { scaleBand, scaleTime } from 'd3-scale';
+import { extent as d3extent } from 'd3-array';
 import throttle from 'lodash.throttle';
-import {timeDay} from 'd3-time';
+import { timeDay } from 'd3-time';
 
-import Axes from '../Axes';
-import StackedBarHorizontal from '../StackedBar/horizontal';
-import ResponsiveWrapper from '../ResponsiveWrapper';
-import BarDescription from '../Legends';
+import Axes from 'src/Axes';
+import StackedBarHorizontal from 'src/StackedBar/horizontal';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
+import BarDescription from 'src/Legends';
 
 const defaultPaddingMultiplier = 0;
 const DEFAULT_FILL_OPACITY = 0.7;
 
 class Chart extends Component {
+    static propTypes = {
+        handleBarHover: PropTypes.func,
+        handleBarClick: PropTypes.func,
+        paddingMultiplier: PropTypes.number,
+        stackColors: PropTypes.object,
+        data: PropTypes.array,
+        fillOpacity: PropTypes.number,
+        axesProps: PropTypes.object,
+        margins: PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+        render: PropTypes.func,
+        parentWidth: PropTypes.number,
+    };
+
     handleBarHover = this.props.handleBarHover ? this.props.handleBarHover.bind(null) : () => {};
 
     handleMouseMoveThrottled = throttle((item) => {
@@ -46,7 +64,7 @@ class Chart extends Component {
             height: 200 + data.length * 30,
         };
 
-        const datePlainList = data.reduce((array, item)=>{
+        const datePlainList = data.reduce((array, item) => {
             item.values.forEach((item) => {
                 array.push(item.dateStart);
                 array.push(item.dateEnd);
@@ -54,13 +72,14 @@ class Chart extends Component {
             return array;
         }, []);
 
-        const yDomain = data.map((item) => (item.titleBar));
-        const datesDomain = d3extent(datePlainList, d => new Date(d));
+        const yDomain = data.map((item) => item.titleBar);
+        const datesDomain = d3extent(datePlainList, (d) => new Date(d));
 
         const AxesTicksCount = {
             xAxis: Math.min(
                 Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)),
-                (ticksCount && ticksCount.xAxis) || 30),
+                (ticksCount && ticksCount.xAxis) || 30
+            ),
             yAxis: (ticksCount && ticksCount.yAxis) || data.length,
         };
 
@@ -83,19 +102,21 @@ class Chart extends Component {
                     onMouseMove={this.props.handleBarHover ? this.handleMouseMove : undefined}
                     onClick={this.props.handleBarClick ? this.handleBarClick : undefined}
                     width={svgDimensions.width}
-                    height={svgDimensions.height}>
+                    height={svgDimensions.height}
+                >
                     <Axes
-                        scales={{xScale, yScale}}
+                        scales={{ xScale, yScale }}
                         padding={padding}
                         margins={canvasMargins}
                         ticksCount={AxesTicksCount}
                         tickFormat={tickFormat}
                         svgDimensions={svgDimensions}
-                        legend={legend} />
-                    {data.map(datum => (
+                        legend={legend}
+                    />
+                    {data.map((datum) => (
                         <StackedBarHorizontal
                             key={datum.titleBar}
-                            scales={{xScale, yScale}}
+                            scales={{ xScale, yScale }}
                             y={yScale(datum.titleBar)}
                             isClickable={!!this.handleBarClick}
                             margins={canvasMargins}
@@ -103,17 +124,19 @@ class Chart extends Component {
                             data={datum}
                             fillOpacity={fillOpacity || DEFAULT_FILL_OPACITY}
                             stackColors={stackColors}
-                            svgDimensions={svgDimensions} />
+                            svgDimensions={svgDimensions}
+                        />
                     ))}
-                    {render && render({
-                        scales: { xScale, yScale },
-                        isClickable: !!this.handleBarClick,
-                        margins: canvasMargins,
-                        height,
-                        fillOpacity: fillOpacity || DEFAULT_FILL_OPACITY,
-                        stackColors,
-                        svgDimensions,
-                    })}
+                    {render &&
+                        render({
+                            scales: { xScale, yScale },
+                            isClickable: !!this.handleBarClick,
+                            margins: canvasMargins,
+                            height,
+                            fillOpacity: fillOpacity || DEFAULT_FILL_OPACITY,
+                            stackColors,
+                            svgDimensions,
+                        })}
                 </svg>
             </div>
         );

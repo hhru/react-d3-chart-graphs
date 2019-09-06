@@ -1,17 +1,18 @@
-import React, {Component} from 'react';
-import {scaleLinear, scaleTime} from 'd3-scale';
-import {line as d3line, curveCatmullRom as d3curveCatmullRom} from 'd3-shape';
-import {extent as d3extent} from 'd3-array';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { scaleLinear, scaleTime } from 'd3-scale';
+import { line as d3line, curveCatmullRom as d3curveCatmullRom } from 'd3-shape';
+import { extent as d3extent } from 'd3-array';
 import throttle from 'lodash.throttle';
-import {timeDay} from 'd3-time';
+import { timeDay } from 'd3-time';
 import styled from 'styled-components';
 
-import Axes from '../Axes';
-import ResponsiveWrapper from '../ResponsiveWrapper';
-import BarDescription from '../Legends';
+import Axes from 'src/Axes';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
+import BarDescription from 'src/Legends';
 
 const Circle = styled.circle`
-    fill: ${props => (props.fill ? props.fill: '#fff')};
+    fill: ${(props) => (props.fill ? props.fill : '#fff')};
     fill-opacity: 1;
     stroke: #000;
     stroke-width: 1px;
@@ -23,6 +24,21 @@ const Circle = styled.circle`
 const CIRCLE_RADIUS = 5;
 
 class LineChartTime extends Component {
+    static propTypes = {
+        handleCircleHover: PropTypes.func,
+        handleBarClick: PropTypes.func,
+        hideCircles: PropTypes.bool,
+        stackColors: PropTypes.object,
+        data: PropTypes.array,
+        axesProps: PropTypes.object,
+        margins: PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+        parentWidth: PropTypes.number,
+    };
     handleCircleHover = this.props.handleCircleHover ? this.props.handleCircleHover : () => {};
 
     handleMouseMoveThrottled = throttle((item, event) => {
@@ -38,10 +54,10 @@ class LineChartTime extends Component {
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(
-            event.target.getAttribute('data-datum'),
-            { clientX: event.clientX, clientY: event.clientY }
-        );
+        this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'), {
+            clientX: event.clientX,
+            clientY: event.clientY,
+        });
     };
 
     renderCircles = (datum) => {
@@ -57,42 +73,43 @@ class LineChartTime extends Component {
             return (
                 <Circle
                     key={`circle-${datum.title}-${xPosition}`}
-                    data-type='outlier'
+                    data-type="outlier"
                     fill={stackColors[datum.title] && stackColors[datum.title].color}
                     data-datum={JSON.stringify({
                         item,
                         title: datum.title,
-                        metrics: {left: xPosition, top: yPosition, width: CIRCLE_RADIUS}
+                        metrics: { left: xPosition, top: yPosition, width: CIRCLE_RADIUS },
                     })}
                     r={CIRCLE_RADIUS}
                     cx={xPosition}
-                    cy={yPosition} />
+                    cy={yPosition}
+                />
             );
         });
-    }
+    };
 
     renderChart = (datum) => {
         const { stackColors } = this.props;
         const line = d3line(datum.values)
-            .x(d => (this.xScale(new Date(d.date))))
-            .y(d => (this.yScale(d.value)))
+            .x((d) => this.xScale(new Date(d.date)))
+            .y((d) => this.yScale(d.value))
             .curve(d3curveCatmullRom.alpha(1));
 
         return [
             <path
                 key={datum.title}
-                fill='none'
-                stroke={stackColors[datum.title] && stackColors[datum.title].color ?
-                    stackColors[datum.title].color : 'ccc'
+                fill="none"
+                stroke={
+                    stackColors[datum.title] && stackColors[datum.title].color ? stackColors[datum.title].color : 'ccc'
                 }
-                strokeLinejoin='round'
-                strokeLinecap='round'
-                strokeWidth='4.5'
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="4.5"
                 d={line(datum.values)}
             />,
             this.renderCircles(datum),
         ];
-    }
+    };
 
     render() {
         const { data, axesProps, margins, stackColors } = this.props;
@@ -104,13 +121,15 @@ class LineChartTime extends Component {
             height: 500,
         };
 
-        let maxValue = Math.max(...data.reduce((array, item) => {
-            item.values.forEach((item) => {
-                array.push(item.value);
-            });
+        let maxValue = Math.max(
+            ...data.reduce((array, item) => {
+                item.values.forEach((item) => {
+                    array.push(item.value);
+                });
 
-            return array;
-        }, []));
+                return array;
+            }, [])
+        );
 
         if (!isFinite(maxValue)) {
             maxValue = 0;
@@ -123,11 +142,12 @@ class LineChartTime extends Component {
             return array;
         }, []);
 
-        const datesDomain = d3extent(datePlainList, d => new Date(d));
+        const datesDomain = d3extent(datePlainList, (d) => new Date(d));
 
         const AxesTicksCount = {
-            xAxis: (ticksCount && ticksCount.xAxis) || Math.min(
-                Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)), 30),
+            xAxis:
+                (ticksCount && ticksCount.xAxis) ||
+                Math.min(Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)), 30),
             yAxis: (ticksCount && ticksCount.yAxis) || data.length,
         };
 
@@ -148,16 +168,18 @@ class LineChartTime extends Component {
                     onMouseMove={this.props.handleCircleHover ? this.handleMouseMove : undefined}
                     onClick={this.props.handleBarClick ? this.handleBarClick : undefined}
                     width={svgDimensions.width}
-                    height={svgDimensions.height}>
+                    height={svgDimensions.height}
+                >
                     <Axes
-                        scales={{xScale: this.xScale, yScale: this.yScale}}
+                        scales={{ xScale: this.xScale, yScale: this.yScale }}
                         padding={padding}
                         margins={canvasMargins}
                         ticksCount={AxesTicksCount}
                         tickFormat={tickFormat}
                         svgDimensions={svgDimensions}
-                        legend={legend} />
-                    { data.map(this.renderChart) }
+                        legend={legend}
+                    />
+                    {data.map(this.renderChart)}
                 </svg>
             </div>
         );

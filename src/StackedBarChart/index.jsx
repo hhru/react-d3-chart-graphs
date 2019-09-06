@@ -1,13 +1,30 @@
-import React, {PureComponent} from 'react';
-import {scaleBand, scaleLinear} from 'd3-scale';
+import React, { PureComponent } from 'react';
+import { scaleBand, scaleLinear } from 'd3-scale';
 import throttle from 'lodash.throttle';
 
-import Axes from '../Axes';
-import StackedBars from '../StackedBars';
-import BarDescription from '../Legends';
-import ResponsiveWrapper from '../ResponsiveWrapper';
+import Axes from 'src/Axes';
+import StackedBars from 'src/StackedBars';
+import BarDescription from 'src/Legends';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
+import PropTypes from 'prop-types';
 
 class Chart extends PureComponent {
+    static propTypes = {
+        handleBarHover: PropTypes.func,
+        handleBarClick: PropTypes.func,
+        paddingMultiplier: PropTypes.number,
+        stackColors: PropTypes.object,
+        data: PropTypes.array,
+        axesProps: PropTypes.object,
+        margins: PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+        parentWidth: PropTypes.number,
+    };
+
     xScale = scaleBand();
     yScale = scaleLinear();
     handleBarHover = this.props.handleBarHover ? this.props.handleBarHover.bind(null) : () => {};
@@ -25,10 +42,10 @@ class Chart extends PureComponent {
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(
-            event.target.getAttribute('data-datum'),
-            {clientX: event.clientX, clientY: event.clientY}
-        );
+        this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'), {
+            clientX: event.clientX,
+            clientY: event.clientY,
+        });
     };
 
     handleBarClick = (event) => {
@@ -46,13 +63,17 @@ class Chart extends PureComponent {
             height: 500,
         };
 
-        let maxValue = Math.max(...this.props.data.reduce((stack, datum) => {
-            stack.push(datum.values.reduce((result, item) => {
-                return result + item.value;
-            }, 0));
+        let maxValue = Math.max(
+            ...this.props.data.reduce((stack, datum) => {
+                stack.push(
+                    datum.values.reduce((result, item) => {
+                        return result + item.value;
+                    }, 0)
+                );
 
-            return stack;
-        }, []));
+                return stack;
+            }, [])
+        );
 
         if (!isFinite(maxValue)) {
             maxValue = 0;
@@ -64,7 +85,7 @@ class Chart extends PureComponent {
 
         const xScale = this.xScale
             .padding(paddingMultiplier || defaultPaddingMultiplier)
-            .domain(data.map(d => d.index))
+            .domain(data.map((d) => d.index))
             .range([canvasMargins.left, svgDimensions.width - canvasMargins.right]);
 
         const yScale = this.yScale
@@ -73,13 +94,13 @@ class Chart extends PureComponent {
             .nice(4);
 
         const tickFormatWrapper = {
-            xAxis: function(index) {
+            xAxis(index) {
                 if (tickFormat && typeof tickFormat.xAxis === 'function') {
                     return tickFormat.xAxis(data[index].titleBar);
                 }
                 return data[index].titleBar;
             },
-            yAxis: tickFormat && (tickFormat.yAxis ? tickFormat.yAxis : undefined)
+            yAxis: tickFormat && (tickFormat.yAxis ? tickFormat.yAxis : undefined),
         };
 
         return (
@@ -90,23 +111,26 @@ class Chart extends PureComponent {
                     onClick={this.props.handleBarClick ? this.handleBarClick : undefined}
                     width={svgDimensions.width}
                     height={svgDimensions.height}
-                    style={{overflow: 'overlay'}}>
+                    style={{ overflow: 'overlay' }}
+                >
                     <Axes
-                        scales={{xScale, yScale}}
+                        scales={{ xScale, yScale }}
                         padding={padding}
                         margins={canvasMargins}
                         ticksCount={ticksCount}
                         tickFormat={tickFormatWrapper}
                         svgDimensions={svgDimensions}
-                        legend={legend} />
+                        legend={legend}
+                    />
                     <StackedBars
-                        scales={{xScale, yScale}}
+                        scales={{ xScale, yScale }}
                         isClickable={!!this.handleBarClick}
                         margins={canvasMargins}
                         data={this.props.data}
                         maxValue={maxValue}
                         stackColors={stackColors}
-                        svgDimensions={svgDimensions} />
+                        svgDimensions={svgDimensions}
+                    />
                 </svg>
             </div>
         );

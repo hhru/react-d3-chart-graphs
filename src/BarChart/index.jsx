@@ -1,16 +1,39 @@
-import React, {Component} from 'react';
-import {scaleBand, scaleLinear} from 'd3-scale';
-import {interpolateLab} from 'd3-interpolate';
+import React, { Component } from 'react';
+import { scaleBand, scaleLinear } from 'd3-scale';
+import { interpolateLab } from 'd3-interpolate';
 import throttle from 'lodash.throttle';
 
-import Axes from '../Axes';
-import Bars from '../Bars';
-import ResponsiveWrapper from '../ResponsiveWrapper';
+import Axes from 'src/Axes';
+import Bars from 'src/Bars';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
+import PropTypes from 'prop-types';
 
 const COLOR_SCALE_MIN_DEFAULT = '#B2EBF2';
 const COLOR_SCALE_MAX_DEFAULT = '#00BCD4';
 
 class Chart extends Component {
+    static propTypes = {
+        handleBarHover: PropTypes.func,
+        handleBarClick: PropTypes.func,
+        paddingMultiplier: PropTypes.number,
+        axesProps: PropTypes.object,
+        margins: PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+        isClickable: PropTypes.bool,
+        data: PropTypes.array,
+        height: PropTypes.number,
+        parentWidth: PropTypes.number,
+        fillOpacity: PropTypes.number,
+        colorScale: PropTypes.shape({
+            min: PropTypes.string,
+            max: PropTypes.string,
+        }),
+    };
+
     xScale = scaleBand();
     yScale = scaleLinear();
     handleBarHover = this.props.handleBarHover ? this.props.handleBarHover.bind(null) : () => {};
@@ -28,10 +51,10 @@ class Chart extends Component {
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(
-            event.target.getAttribute('data-datum'),
-            {clientX: event.clientX, clientY: event.clientY}
-        );
+        this.handleMouseMoveThrottled(event.target.getAttribute('data-datum'), {
+            clientX: event.clientX,
+            clientY: event.clientY,
+        });
     };
 
     handleBarClick = (event) => {
@@ -48,7 +71,7 @@ class Chart extends Component {
             width: Math.max(this.props.parentWidth, 300),
             height: 500,
         };
-        let maxValue = Math.max(...data.map(d => d.value));
+        let maxValue = Math.max(...data.map((d) => d.value));
 
         if (!isFinite(maxValue)) {
             maxValue = 0;
@@ -56,7 +79,7 @@ class Chart extends Component {
 
         const xScale = this.xScale
             .padding(paddingMultiplier || defaultPaddingMultiplier)
-            .domain(data.map(d => d.title))
+            .domain(data.map((d) => d.title))
             .range([canvasMargins.left, svgDimensions.width - canvasMargins.right]);
 
         const yScale = this.yScale
@@ -66,8 +89,10 @@ class Chart extends Component {
 
         const colorScaleInterpolate = scaleLinear()
             .domain([0, maxValue])
-            .range([colorScale && colorScale.min || COLOR_SCALE_MIN_DEFAULT,
-                colorScale && colorScale.max || COLOR_SCALE_MAX_DEFAULT])
+            .range([
+                (colorScale && colorScale.min) || COLOR_SCALE_MIN_DEFAULT,
+                (colorScale && colorScale.max) || COLOR_SCALE_MAX_DEFAULT,
+            ])
             .interpolate(interpolateLab);
 
         return (
@@ -75,22 +100,25 @@ class Chart extends Component {
                 onMouseMove={this.props.handleBarHover ? this.handleMouseMove : undefined}
                 onClick={this.props.handleBarClick ? this.handleBarClick : undefined}
                 width={svgDimensions.width}
-                height={svgDimensions.height}>
+                height={svgDimensions.height}
+            >
                 <Axes
-                    scales={{xScale, yScale}}
+                    scales={{ xScale, yScale }}
                     padding={padding}
                     margins={canvasMargins}
                     ticksCount={ticksCount}
                     tickFormat={tickFormat}
                     svgDimensions={svgDimensions}
-                    legend={legend} />
+                    legend={legend}
+                />
                 <Bars
-                    scales={{xScale, yScale}}
+                    scales={{ xScale, yScale }}
                     margins={canvasMargins}
                     data={data}
                     isClickable={!!this.props.handleBarClick}
                     colorScale={colorScaleInterpolate}
-                    svgDimensions={svgDimensions} />
+                    svgDimensions={svgDimensions}
+                />
             </svg>
         );
     }
