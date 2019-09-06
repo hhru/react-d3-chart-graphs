@@ -1,10 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as d3Axis from 'd3-axis';
-import {select as d3Select} from 'd3-selection';
+import { select as d3Select } from 'd3-selection';
 
 import './axis.css';
 
 export default class Axis extends Component {
+    static propTypes = {
+        scale: PropTypes.func,
+        tickSize: PropTypes.number,
+        legend: PropTypes.shape({
+            text: PropTypes.string,
+        }),
+        padding: PropTypes.number,
+        ticksCount: PropTypes.number,
+        tickFormat: PropTypes.func,
+        orient: PropTypes.string,
+        translate: PropTypes.string,
+    };
     componentDidMount() {
         this.renderAxis();
     }
@@ -15,7 +28,7 @@ export default class Axis extends Component {
 
     getAxisElement = (el) => {
         this.axisRootElement = el;
-    }
+    };
 
     renderAxis() {
         const axisType = `axis${this.props.orient}`;
@@ -31,32 +44,30 @@ export default class Axis extends Component {
     }
 
     renderLegend = () => {
-        const {legend} = this.props;
+        const { legend } = this.props;
         const axisLabelStylesDefault = {
             fontSize: legend.fontSize,
-            transform: legend.translate
+            transform: legend.translate,
         };
 
         return (
-            <text
-                  style={axisLabelStylesDefault}
-                  dy={legend.dy}>
+            <text style={axisLabelStylesDefault} dy={legend.dy}>
                 {legend.text}
             </text>
-            
         );
-    }
+    };
 
     render() {
-        const {legend, translate} = this.props;
-        
+        const { legend, translate } = this.props;
+
         return (
             <g>
                 <g
                     className={`axis axis_${this.props.orient.toLowerCase()}`}
                     ref={this.getAxisElement}
-                    transform={translate} />
-                {legend.text ?  this.renderLegend(): ''}
+                    transform={translate}
+                />
+                {legend.text ? this.renderLegend() : ''}
             </g>
         );
     }

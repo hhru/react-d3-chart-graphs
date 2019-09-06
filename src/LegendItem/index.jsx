@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const LegendItem = styled.div`
@@ -13,7 +14,7 @@ const LegendItemColor = styled.div`
     width: 16px;
     height: 16px;
     vertical-align: middle;
-    background: ${props => props.color}
+    background: ${(props) => props.color};
 `;
 
 const LegendItemText = styled.div`
@@ -21,11 +22,16 @@ const LegendItemText = styled.div`
     font-size: 12px;
 `;
 
-const LegendItemComponent = props => (
+const LegendItemComponent = (props) => (
     <LegendItem>
         <LegendItemColor color={props.color} />
         <LegendItemText>- {props.text}</LegendItemText>
     </LegendItem>
 );
 
-export default LegendItemComponent
+LegendItemComponent.propTypes = {
+    color: PropTypes.string,
+    text: PropTypes.string,
+};
+
+export default LegendItemComponent;

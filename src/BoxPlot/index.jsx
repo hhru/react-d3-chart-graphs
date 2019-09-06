@@ -1,16 +1,38 @@
-import React, {Component} from 'react';
-import {scaleBand, scaleLinear, scalePow} from 'd3-scale';
-import {interpolateLab} from 'd3-interpolate';
+import React, { Component } from 'react';
+import { scaleBand, scaleLinear, scalePow } from 'd3-scale';
+import { interpolateLab } from 'd3-interpolate';
 import throttle from 'lodash.throttle';
 
-import Axes from '../Axes';
-import Whisker from '../BoxPlotItem';
-import ResponsiveWrapper from '../ResponsiveWrapper';
+import Axes from 'src/Axes';
+import Whisker from 'src/BoxPlotItem';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
+import PropTypes from 'prop-types';
 
 const COLOR_SCALE_MIN_DEFAULT = '#B2EBF2';
 const COLOR_SCALE_MAX_DEFAULT = '#00BCD4';
 
 class BoxPlot extends Component {
+    static propTypes = {
+        handleOutlierHover: PropTypes.func,
+        handleOutlierClick: PropTypes.func,
+        handleBarHover: PropTypes.func,
+        handleBarClick: PropTypes.func,
+        paddingMultiplier: PropTypes.number,
+        axesProps: PropTypes.object,
+        margins: PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+        isClickable: PropTypes.bool,
+        data: PropTypes.array,
+        parentWidth: PropTypes.number,
+        colorScale: PropTypes.shape({
+            min: PropTypes.string,
+            max: PropTypes.string,
+        }),
+    };
     xScale = scaleBand();
     yScale = scalePow();
 
@@ -20,9 +42,8 @@ class BoxPlot extends Component {
 
         if (target === this.prevEventTarget) {
             return;
-        } else {
-            this.prevEventTarget = target;
         }
+        this.prevEventTarget = target;
 
         if (this.props.handleOutlierHover && type === 'outlier') {
             this.props.handleOutlierHover(datum, event);
@@ -32,7 +53,7 @@ class BoxPlot extends Component {
     }, 50);
 
     handleMouseMove = (event) => {
-        this.handleMouseMoveThrottled(event.target, {clientX: event.clientX, clientY: event.clientY});
+        this.handleMouseMoveThrottled(event.target, { clientX: event.clientX, clientY: event.clientY });
     };
 
     handleClick = (event) => {
@@ -52,11 +73,12 @@ class BoxPlot extends Component {
             margins,
             handleBarClick,
             handleOutlierClick,
-            colorScale } = this.props;
-        const {legend, padding, ticksCount, tickFormat, exponent} = axesProps;
+            colorScale,
+        } = this.props;
+        const { legend, padding, ticksCount, tickFormat, exponent } = axesProps;
         const defaultPaddingMultiplier = 0;
         const defaultExponent = 1;
-        const defaultMargins = {top: 10, right: 10, bottom: 150, left: 80};
+        const defaultMargins = { top: 10, right: 10, bottom: 150, left: 80 };
         const canvasMargins = margins || defaultMargins;
         const svgDimensions = {
             width: Math.max(this.props.parentWidth, 300),
@@ -64,15 +86,17 @@ class BoxPlot extends Component {
         };
         const isClickable = handleBarClick || handleOutlierClick;
 
-        let maxValue = Math.max(...data.reduce((result, data) => {
-            if (data.outliers.length !== 0) {
-                result.push(...data.outliers.map(outlier => outlier.value));
-            }
-            if (data.numbers && data.numbers.max) {
-                result.push(data.numbers.max);
-            }
-            return result;
-        }, []));
+        let maxValue = Math.max(
+            ...data.reduce((result, data) => {
+                if (data.outliers.length !== 0) {
+                    result.push(...data.outliers.map((outlier) => outlier.value));
+                }
+                if (data.numbers && data.numbers.max) {
+                    result.push(data.numbers.max);
+                }
+                return result;
+            }, [])
+        );
 
         if (!isFinite(maxValue)) {
             maxValue = 0;
@@ -80,7 +104,7 @@ class BoxPlot extends Component {
 
         const xScale = this.xScale
             .padding(paddingMultiplier || defaultPaddingMultiplier)
-            .domain(data.map(d => d.title))
+            .domain(data.map((d) => d.title))
             .range([canvasMargins.left, svgDimensions.width - canvasMargins.right]);
 
         const yScale = this.yScale
@@ -91,8 +115,10 @@ class BoxPlot extends Component {
 
         const colorScaleInterpolate = scaleLinear()
             .domain([0, maxValue])
-            .range([colorScale && colorScale.min || COLOR_SCALE_MIN_DEFAULT,
-                colorScale && colorScale.max || COLOR_SCALE_MAX_DEFAULT])
+            .range([
+                (colorScale && colorScale.min) || COLOR_SCALE_MIN_DEFAULT,
+                (colorScale && colorScale.max) || COLOR_SCALE_MAX_DEFAULT,
+            ])
             .interpolate(interpolateLab);
 
         const whiskers = data.map((datum) => {
@@ -100,12 +126,13 @@ class BoxPlot extends Component {
                 <Whisker
                     key={datum.title}
                     isClickable={!!handleBarClick}
-                    scales={{xScale, yScale}}
+                    scales={{ xScale, yScale }}
                     margins={canvasMargins}
                     datum={datum}
                     maxValue={maxValue}
                     colorScale={colorScaleInterpolate}
-                    svgDimensions={svgDimensions} />
+                    svgDimensions={svgDimensions}
+                />
             );
         });
 
@@ -114,15 +141,17 @@ class BoxPlot extends Component {
                 onMouseMove={this.props.handleBarHover ? this.handleMouseMove : undefined}
                 onClick={isClickable ? this.handleClick : undefined}
                 width={svgDimensions.width}
-                height={svgDimensions.height}>
+                height={svgDimensions.height}
+            >
                 <Axes
-                    scales={{xScale, yScale}}
+                    scales={{ xScale, yScale }}
                     padding={padding}
                     margins={canvasMargins}
                     ticksCount={ticksCount}
                     tickFormat={tickFormat}
                     svgDimensions={svgDimensions}
-                    legend={legend} />
+                    legend={legend}
+                />
                 {whiskers}
             </svg>
         );

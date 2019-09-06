@@ -1,10 +1,24 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import Bar from '../Bar';
+import Bar from 'src/Bar';
 
 const DEFAULT_COLOR = '#37474F';
 
 export default class StackedBarHorizontal extends Component {
+    static propTypes = {
+        stackColors: PropTypes.object,
+        isClickable: PropTypes.bool,
+        data: PropTypes.object,
+        height: PropTypes.number,
+        y: PropTypes.number,
+        fillOpacity: PropTypes.number,
+        scales: PropTypes.shape({
+            xScale: PropTypes.func,
+            yScale: PropTypes.func,
+        }),
+    };
+
     render() {
         const { scales, data, stackColors, isClickable, fillOpacity, height, y } = this.props;
         const { xScale } = scales;
@@ -25,12 +39,11 @@ export default class StackedBarHorizontal extends Component {
                     height={height}
                     width={width}
                     fillOpacity={fillOpacity}
-                    fill={stackColors[datum.title] && stackColors[datum.title].color || DEFAULT_COLOR} />
+                    fill={(stackColors[datum.title] && stackColors[datum.title].color) || DEFAULT_COLOR}
+                />
             );
         });
 
-        return (
-            <g>{bars}</g>
-        );
+        return <g>{bars}</g>;
     }
 }

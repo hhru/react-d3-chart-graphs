@@ -1,8 +1,30 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import Bar from '../Bar';
+import Bar from 'src/Bar';
+import PropTypes from 'prop-types';
 
 export default class StackedBar extends Component {
+    static propTypes = {
+        stackColors: PropTypes.object,
+        isClickable: PropTypes.bool,
+        data: PropTypes.object,
+        svgDimensions: PropTypes.shape({
+            width: PropTypes.number,
+            height: PropTypes.number,
+        }),
+        margins: PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+        parentWidth: PropTypes.number,
+        scales: PropTypes.shape({
+            xScale: PropTypes.func,
+            yScale: PropTypes.func,
+        }),
+    };
+
     render() {
         const { scales, margins, data, svgDimensions, stackColors, isClickable } = this.props;
         const { xScale, yScale } = scales;
@@ -23,12 +45,11 @@ export default class StackedBar extends Component {
                     y={yScale(previsionHeight)}
                     height={itemHeight}
                     width={xScale.bandwidth()}
-                    fill={stackColors[datum.title].color} />
+                    fill={stackColors[datum.title].color}
+                />
             );
         });
 
-        return (
-            <g>{bars}</g>
-        );
+        return <g>{bars}</g>;
     }
 }
