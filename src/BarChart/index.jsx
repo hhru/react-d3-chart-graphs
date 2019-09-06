@@ -3,9 +3,9 @@ import {scaleBand, scaleLinear} from 'd3-scale';
 import {interpolateLab} from 'd3-interpolate';
 import throttle from 'lodash.throttle';
 
-import Axes from '../Axes';
-import Bars from '../Bars';
-import ResponsiveWrapper from '../ResponsiveWrapper';
+import Axes from 'src/Axes';
+import Bars from 'src/Bars';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
 
 const COLOR_SCALE_MIN_DEFAULT = '#B2EBF2';
 const COLOR_SCALE_MAX_DEFAULT = '#00BCD4';

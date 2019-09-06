@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node scripts/dev.js",
     "build": "NODE_ENV='production' webpack",
-    "lint": "eslint src/",
+    "lint": "eslint src/**/*.{js,jsx}",
     "prepublish": "yarn build"
   },
   "repository": {
@@ -44,8 +44,13 @@
     "babel-loader": "8.0.5",
     "babel-plugin-styled-components": "1.1.7",
     "css-loader": "3.0.0",
-    "eslint": "5.16.0",
+    "eslint": "6.3.0",
+    "eslint-plugin-react": "7.11.0",
+    "eslint-import-resolver-webpack": "0.11.1",
+    "@hh.ru/eslint-config": "6.1.0",
     "mini-css-extract-plugin": "0.7.0",
+    "prop-types": "~15.7.2",
+    "lint-staged": "7.3.0",
     "path": "0.12.7",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.5"
@@ -58,8 +63,8 @@
     "d3-shape": "1.2.0",
     "d3-time": "1.0.7",
     "lodash.throttle": "4.1.1",
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
+    "react": "16.1.1",
+    "react-dom": "16.1.2",
     "styled-components": "2.1.1"
   }
 }
