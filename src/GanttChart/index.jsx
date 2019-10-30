@@ -75,11 +75,13 @@ class Chart extends Component {
         const yDomain = data.map((item) => item.titleBar);
         const datesDomain = d3extent(datePlainList, (d) => new Date(d));
 
+        const calcTicksCount =
+            Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)) <= 2
+                ? Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60))
+                : Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24));
+
         const AxesTicksCount = {
-            xAxis: Math.min(
-                Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)),
-                (ticksCount && ticksCount.xAxis) || 30
-            ),
+            xAxis: Math.min(calcTicksCount, (ticksCount && ticksCount.xAxis) || 30),
             yAxis: (ticksCount && ticksCount.yAxis) || data.length,
         };
 
