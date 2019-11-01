@@ -1,5 +1,6 @@
 import React from 'react';
-import {LineChartTime} from '@hh.ru/react-d3-chart-graphs';
+// import {LineChartTime} from '@hh.ru/react-d3-chart-graphs';
+import {LineChartTime} from  '../dist/index.js';
 import {timeFormat} from 'd3-time-format';
 
 const items = [

@@ -1,5 +1,6 @@
 import React from 'react';
-import {BarChart} from '@hh.ru/react-d3-chart-graphs';
+// import {BarChart} from '@hh.ru/react-d3-chart-graphs';
+import {BarChart} from '../dist/index.js';
 
 const items = [
     {
