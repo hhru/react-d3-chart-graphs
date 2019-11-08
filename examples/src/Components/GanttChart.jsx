@@ -1,5 +1,6 @@
 import React from 'react';
-import {GanttChart} from '@hh.ru/react-d3-chart-graphs';
+// import {GanttChart} from '@hh.ru/react-d3-chart-graphs';
+import {GanttChart} from '../dist/index.js';
 import {timeFormat} from 'd3-time-format';
 
 const data = [
@@ -44,8 +45,12 @@ const axesProps = {
         yAxis: 5,
     },
     tickFormat: {
-        xAxis: timeFormat('%d %B %y'),
+        // xAxis: timeFormat('%d %B %y'),
+        xAxis: timeFormat('%-I:%M:%S %p')
     },
+    ticksCount: {
+        xAxis: 50
+    }
 };
 
 const stackColors = {
@@ -70,6 +75,7 @@ export default () => {
 
     return (
         <GanttChart
+            manualAxes={true}
             axesProps={axesProps}
             data={data}
             handleBarHover={handleBarHover}

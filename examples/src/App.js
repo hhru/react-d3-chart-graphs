@@ -8,7 +8,8 @@ import BoxPlot from './Components/BoxPlot';
 import GanttChart from './Components/GanttChart';
 import LineChart from './Components/LineChart';
 
-import '@hh.ru/react-d3-chart-graphs/styles.css';
+// import '@hh.ru/react-d3-chart-graphs/styles.css';
+import './dist/styles.css';
 
 class App extends Component {
     render() {

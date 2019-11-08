@@ -1,8 +1,8 @@
 {
-  "name": "@hh.ru/react-d3-chart-graphs",
+  "name": "react-d3-chart-graphs",
   "version": "6.0.2",
-  "description": "A javascript library for building charts components made with React.js and D3.js",
-  "main": "dist/index.j",
+  "description": "A javascript library for building charts components made with React.js and D3.js. Fork by @hh.ru/react-d3-chart-graphs",
+  "main": "dist/index.js",
   "style": "dist/styles.css",
   "files": [
     "dist/styles.css",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hhru/react-d3-chart-graphs"
+    "url": "https://github.com/Gorgy/react-d3-chart-graphs"
   },
   "private": false,
   "keywords": [
@@ -30,8 +30,8 @@
     "stacked-bar-chart"
   ],
   "author": {
-    "name": "Andrei Gladkov",
-    "email": "andrewgladkovlz@gmail.com"
+    "name": "Andrei Gladkov/Alexei Belov",
+    "email": "lcf-trane@live.ru"
   },
   "license": "MIT",
   "devDependencies": {

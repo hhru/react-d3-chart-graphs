@@ -1,5 +1,6 @@
 import React from 'react';
-import {BoxPlot} from '@hh.ru/react-d3-chart-graphs';
+// import {BoxPlot} from '@hh.ru/react-d3-chart-graphs';
+import {BoxPlot} from '../dist/index.js';
 
 const items = [
     {

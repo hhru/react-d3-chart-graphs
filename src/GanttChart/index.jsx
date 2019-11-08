@@ -30,6 +30,7 @@ class Chart extends Component {
         }),
         render: PropTypes.func,
         parentWidth: PropTypes.number,
+        manualAxes: PropTypes.bool
     };
 
     handleBarHover = this.props.handleBarHover ? this.props.handleBarHover.bind(null) : () => {};
@@ -55,7 +56,7 @@ class Chart extends Component {
     };
 
     render() {
-        const { data, axesProps, margins, stackColors, paddingMultiplier, fillOpacity, render } = this.props;
+        const { data, axesProps, margins, stackColors, paddingMultiplier, fillOpacity, render, manualAxes } = this.props;
         const { legend, padding, tickFormat, ticksCount } = axesProps;
         const defaultMargins = { top: 10, right: 10, bottom: 150, left: 80 };
         const canvasMargins = margins || defaultMargins;
@@ -75,11 +76,13 @@ class Chart extends Component {
         const yDomain = data.map((item) => item.titleBar);
         const datesDomain = d3extent(datePlainList, (d) => new Date(d));
 
+        const calcTicksCount =
+            Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)) <= 2
+                ? Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60))
+                : Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24));
+
         const AxesTicksCount = {
-            xAxis: Math.min(
-                Math.floor((datesDomain[1] - datesDomain[0]) / (1000 * 60 * 60 * 24)),
-                (ticksCount && ticksCount.xAxis) || 30
-            ),
+            xAxis: manualAxes ? ticksCount.xAxis : Math.min(calcTicksCount, (ticksCount && ticksCount.xAxis) || 30),
             yAxis: (ticksCount && ticksCount.yAxis) || data.length,
         };
 
