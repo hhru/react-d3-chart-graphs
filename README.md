@@ -654,3 +654,7 @@ Add render prop to Gantt chart.
 ### 6.0.0
 
 Updated dependencies
+
+### 6.0.2
+
+Up webpack version
