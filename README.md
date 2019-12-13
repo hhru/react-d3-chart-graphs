@@ -658,3 +658,7 @@ Updated dependencies
 ### 6.0.3
 
 Up webpack version
+
+### 6.0.4
+
+Up react-scripts version in examples
