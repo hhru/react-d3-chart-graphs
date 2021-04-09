@@ -662,3 +662,8 @@ Up webpack version
 ### 6.0.4
 
 Up react-scripts version in examples
+
+### 6.1.0
+
+Change `render` prop for Gantt chart (`render` -> `renderBefore`)  
+Add `renderAfter` prop for Gantt chart
