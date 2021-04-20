@@ -28,7 +28,8 @@ class Chart extends Component {
             bottom: PropTypes.number,
             left: PropTypes.number,
         }),
-        render: PropTypes.func,
+        renderBefore: PropTypes.func,
+        renderAfter: PropTypes.func,
         parentWidth: PropTypes.number,
     };
 
@@ -55,7 +56,16 @@ class Chart extends Component {
     };
 
     render() {
-        const { data, axesProps, margins, stackColors, paddingMultiplier, fillOpacity, render } = this.props;
+        const {
+            data,
+            axesProps,
+            margins,
+            stackColors,
+            paddingMultiplier,
+            fillOpacity,
+            renderBefore,
+            renderAfter,
+        } = this.props;
         const { legend, padding, tickFormat, ticksCount } = axesProps;
         const defaultMargins = { top: 10, right: 10, bottom: 150, left: 80 };
         const canvasMargins = margins || defaultMargins;
@@ -113,6 +123,16 @@ class Chart extends Component {
                         svgDimensions={svgDimensions}
                         legend={legend}
                     />
+                    {renderBefore &&
+                        renderBefore({
+                            scales: { xScale, yScale },
+                            isClickable: !!this.handleBarClick,
+                            margins: canvasMargins,
+                            height,
+                            fillOpacity: fillOpacity || DEFAULT_FILL_OPACITY,
+                            stackColors,
+                            svgDimensions,
+                        })}
                     {data.map((datum) => (
                         <StackedBarHorizontal
                             key={datum.titleBar}
@@ -127,8 +147,8 @@ class Chart extends Component {
                             svgDimensions={svgDimensions}
                         />
                     ))}
-                    {render &&
-                        render({
+                    {renderAfter &&
+                        renderAfter({
                             scales: { xScale, yScale },
                             isClickable: !!this.handleBarClick,
                             margins: canvasMargins,
