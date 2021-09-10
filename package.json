@@ -13,7 +13,8 @@
     "dev": "node scripts/dev.js",
     "build": "NODE_ENV='production' webpack",
     "lint": "eslint src/**/*.{js,jsx}",
-    "prepublish": "yarn build"
+    "prepublish": "yarn build",
+    "release": "npm publish --access=public"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,4 @@
+version: 6.0.7
+build_image: registry.pyn.ru/node14-ubuntu18-building:2021.09.09
+update_method: npm_update
+build_method: npm_build
