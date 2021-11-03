@@ -1,8 +1,8 @@
 {
   "name": "@hh.ru/react-d3-chart-graphs",
-  "version": "6.0.7",
+  "version": "6.1.0",
   "description": "A javascript library for building charts components made with React.js and D3.js",
-  "main": "dist/index.j",
+  "main": "dist/index.js",
   "style": "dist/styles.css",
   "files": [
     "dist/styles.css",
