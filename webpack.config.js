@@ -16,7 +16,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
-            src: path.resolve('src'),
+            src: path.resolve(__dirname, 'src'),
         },
     },
     module: {
@@ -25,15 +25,6 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-react'],
-                    plugins: [
-                        '@babel/plugin-transform-react-jsx',
-                        '@babel/plugin-transform-object-assign',
-                        '@babel/plugin-proposal-object-rest-spread',
-                        '@babel/plugin-proposal-class-properties',
-                    ],
-                },
             },
             {
                 test: /\.css$/,

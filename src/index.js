@@ -1,20 +1,11 @@
 import Axes from './Axes';
 import BarChart from './BarChart';
-import StackedBarChart from './StackedBarChart';
 import BoxPlot from './BoxPlot';
 import GanttChart from './GanttChart';
-import ResponsiveWrapper from './ResponsiveWrapper';
-import LineChartTime from './LineChartTime';
+import Graph from './Graph';
 import Legend from './Legends';
+import LineChartTime from './LineChartTime';
+import ResponsiveWrapper from './ResponsiveWrapper';
+import StackedBarChart from './StackedBarChart';
 
-export {
-    Axes,
-    BarChart,
-    StackedBarChart,
-    BoxPlot,
-    ResponsiveWrapper,
-    Legend,
-    GanttChart,
-    LineChartTime,
-};
-
+export { Axes, BarChart, StackedBarChart, BoxPlot, ResponsiveWrapper, Legend, GanttChart, LineChartTime, Graph };
