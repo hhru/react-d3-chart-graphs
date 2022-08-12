@@ -662,3 +662,7 @@ Up webpack version
 ### 6.0.4
 
 Up react-scripts version in examples
+
+### 6.1.0
+
+Add graph component
