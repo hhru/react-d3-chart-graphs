@@ -1,0 +1,13 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: react-d3-chart-graphs
+  annotations:
+    github.com/project-slug: hhru/react-d3-chart-graphs
+  tags:
+    - backend
+    - js
+spec:
+  type: library
+  lifecycle: production
