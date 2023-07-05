@@ -10,4 +10,5 @@ metadata:
     - js
 spec:
   type: library
+  owner: a-team
   lifecycle: production
