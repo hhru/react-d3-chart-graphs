@@ -12,8 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node scripts/dev.js",
     "build": "NODE_ENV='production' webpack",
-    "lint": "eslint src/**/*.{js,jsx}",
-    "prepublish": "yarn build",
+    "lint": "NODE_OPTIONS='--openssl-legacy-provider' eslint src/**/*.{js,jsx}",
+    "prepublish": "NODE_OPTIONS='--openssl-legacy-provider' yarn build",
     "release": "npm publish --access=public"
   },
   "repository": {
