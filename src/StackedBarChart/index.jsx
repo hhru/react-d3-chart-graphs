@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import throttle from 'lodash.throttle';
+import PropTypes from 'prop-types';
 
 import Axes from 'src/Axes';
-import StackedBars from 'src/StackedBars';
 import BarDescription from 'src/Legends';
 import ResponsiveWrapper from 'src/ResponsiveWrapper';
-import PropTypes from 'prop-types';
+import StackedBars from 'src/StackedBars';
 
 class Chart extends PureComponent {
     static propTypes = {

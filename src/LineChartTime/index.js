@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { extent as d3extent } from 'd3-array';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import { line as d3line, curveCatmullRom as d3curveCatmullRom } from 'd3-shape';
-import { extent as d3extent } from 'd3-array';
-import throttle from 'lodash.throttle';
 import { timeDay } from 'd3-time';
+import throttle from 'lodash.throttle';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Axes from 'src/Axes';
-import ResponsiveWrapper from 'src/ResponsiveWrapper';
 import BarDescription from 'src/Legends';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
 
 const Circle = styled.circle`
     fill: ${(props) => (props.fill ? props.fill : '#fff')};
