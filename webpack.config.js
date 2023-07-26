@@ -12,6 +12,7 @@ module.exports = {
         libraryTarget: 'umd',
         library: 'react-d3-chart-graphs',
         umdNamedDefine: true,
+        globalObject: 'this',
     },
     resolve: {
         extensions: ['.js', '.jsx'],
