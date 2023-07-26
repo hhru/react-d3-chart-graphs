@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { scaleBand, scaleTime } from 'd3-scale';
 import { extent as d3extent } from 'd3-array';
-import throttle from 'lodash.throttle';
+import { scaleBand, scaleTime } from 'd3-scale';
 import { timeDay } from 'd3-time';
+import throttle from 'lodash.throttle';
+import PropTypes from 'prop-types';
 
 import Axes from 'src/Axes';
-import StackedBarHorizontal from 'src/StackedBar/horizontal';
-import ResponsiveWrapper from 'src/ResponsiveWrapper';
 import BarDescription from 'src/Legends';
+import ResponsiveWrapper from 'src/ResponsiveWrapper';
+import StackedBarHorizontal from 'src/StackedBar/horizontal';
 
 const defaultPaddingMultiplier = 0;
 const DEFAULT_FILL_OPACITY = 0.7;

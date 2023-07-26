@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { scaleBand, scaleLinear } from 'd3-scale';
 import { interpolateLab } from 'd3-interpolate';
+import { scaleBand, scaleLinear } from 'd3-scale';
 import throttle from 'lodash.throttle';
+import PropTypes from 'prop-types';
 
 import Axes from 'src/Axes';
 import Bars from 'src/Bars';
 import ResponsiveWrapper from 'src/ResponsiveWrapper';
-import PropTypes from 'prop-types';
 
 const COLOR_SCALE_MIN_DEFAULT = '#B2EBF2';
 const COLOR_SCALE_MAX_DEFAULT = '#00BCD4';

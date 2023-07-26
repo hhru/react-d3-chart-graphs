@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Bar from 'src/Bar';
-import PropTypes from 'prop-types';
 
 const Line = styled.line`
     fill: steelblue;

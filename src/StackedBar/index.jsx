@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Bar from 'src/Bar';
-import PropTypes from 'prop-types';
 
 export default class StackedBar extends Component {
     static propTypes = {
