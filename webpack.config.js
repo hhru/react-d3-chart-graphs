@@ -4,11 +4,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDevMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.jsx',
     output: {
         path: path.resolve(__dirname, isDevMode ? './examples/node_modules/@hh.ru/react-d3-chart-graphs' : 'dist'),
         publicPath: '/dist/',
-        filename: 'index.js',
+        filename: 'index.jsx',
         libraryTarget: 'umd',
         library: 'react-d3-chart-graphs',
         umdNamedDefine: true,

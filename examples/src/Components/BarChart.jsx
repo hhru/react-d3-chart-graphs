@@ -3,7 +3,7 @@ import {BarChart} from '@hh.ru/react-d3-chart-graphs';
 
 const items = [
     {
-        title: 'First bar',
+        title: 'First bar1',
         value: 2,
     },
     {

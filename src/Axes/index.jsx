@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Axis from 'src/Axis';
+import Axis from 'src/Axis/index.jsx';
 
 const FONT_SIZE_LABEL = 16;
 const DEFAULT_PADDING = 5;
