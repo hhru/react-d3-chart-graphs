@@ -6,6 +6,7 @@ import { terser } from "rollup-plugin-terser";
 import postcss from "rollup-plugin-postcss";
 import analyze from 'rollup-plugin-analyzer';
 import alias from '@rollup/plugin-alias';
+import { addCssImports } from './scripts/add-css-imports';
 
 const isDevMode = process.env.NODE_ENV === 'development';
 
@@ -18,6 +19,7 @@ export default {
         format: 'esm',
         sourcemap: isDevMode,
     },
+    cache: false,
     plugins: [
         alias({
             entries: [
@@ -27,12 +29,12 @@ export default {
             ]
         }),
         resolve({
-            extensions: ['.js', '.jsx'],
+            extensions: ['.js', '.jsx', '.css'],
         }),
         commonjs(),
         postcss({
-            extract: 'styles.css',
-            minimize: true,
+            extract: 'index.css',
+            minimize: !isDevMode,
             sourceMap: isDevMode,
             // config: 'postcss.config.js',
         }),
@@ -41,11 +43,12 @@ export default {
             babelHelpers: 'bundled',
             // presets: ['@babel/preset-react'],
         }),
-        terser({
-            compress: !isDevMode,
-            mangle: !isDevMode,
-        }),
-        analyze({ summaryOnly: true }),
+        // terser({
+        //     compress: !isDevMode,
+        //     mangle: !isDevMode,
+        // }),
+        // analyze({ summaryOnly: true }),
+        addCssImports,
     ],
     // external: ['@hh.ru']
 };

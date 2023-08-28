@@ -8,7 +8,7 @@
     fill: black;
 }
 
-    .axis_bottom text {
-        transform: rotate(-45deg);
-        text-anchor: end;
-    }
+.axis_bottom text {
+    transform: rotate(-45deg);
+    text-anchor: end;
+}
